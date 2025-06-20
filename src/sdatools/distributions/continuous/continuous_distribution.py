@@ -1,6 +1,6 @@
 from abc import abstractmethod
 
-from distributions.distribution import Distribution
+from sdatools.distributions.distribution import Distribution
 
 
 class ContinuousDistribution(Distribution):

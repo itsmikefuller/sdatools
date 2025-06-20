@@ -1,4 +1,4 @@
-from distributions.continuous.normal import NormalDistribution
+from sdatools.distributions.continuous.normal import NormalDistribution
 
 
 # Create two normal distributions

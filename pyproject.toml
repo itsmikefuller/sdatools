@@ -1,5 +1,5 @@
 [project]
-name = "stats_and_data_analysis_tools"
+name = "sdatools"
 version = "0.1.0"
 authors = [
   { name="Michael J. Fuller", email="michaeljosephfuller@gmail.com" },
@@ -13,6 +13,10 @@ classifiers = [
 ]
 license = "MIT"
 license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+Homepage = "https://github.com/itsmikefuller/stats_and_data_analysis_tools"
+Issues = "https://github.com/itsmikefuller/stats_and_data_analysis_tools/issues"
 
 [build-system]
 requires = ["setuptools", "wheel"]

@@ -1,7 +1,7 @@
 from math import exp, sqrt, pi
 
-from core.erf import erf
-from distributions.continuous.continuous_distribution import ContinuousDistribution
+from sdatools.functions.erf import erf
+from sdatools.distributions.continuous.continuous_distribution import ContinuousDistribution
 
 
 class NormalDistribution(ContinuousDistribution):
