@@ -1,0 +1,19 @@
+[project]
+name = "stats_and_data_analysis_tools"
+version = "0.1.0"
+authors = [
+  { name="Michael J. Fuller", email="michaeljosephfuller@gmail.com" },
+]
+description = "A collection of tools for statistics and data analysis"
+readme = "README.md"
+requires-python = ">=3.10.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
