@@ -1,5 +1,7 @@
 # SDATools: Statistics & Data Analysis Tools
+
 **Author:** Mike Fuller
+
 **Last Updated:** 20th June 2025
 
 This repository contains the source code for **SDATools**, a Python package I created to reinforce my understanding of various statistics and data analysis tools, whilst getting hands-on with Python to build a functioning package that myself and others can use to carry out statistical tests and data analysis.
@@ -17,7 +19,7 @@ SDATools has the following structure:
 └───tests
 ```
 
-The `distributions` directory contains a `distribution.py` file, which has an abstract distributions class `Distributions` from which all distributions are built. Furthermore, `distributions/continuous` and `distributions/discrete` contain `continuous_distribution.py` and `discrete_distribution.py` respectively, which have abstract classes `ContinuousDistribution` for continuous distributions and `DiscreteDistribution` for discrete distributions. I implemented these abstract classes so that probabilty density and mass functions (PDFs/PMFs) and cumulative distribution functions (CDFs) are enforced when new distributions are added.
+The `distributions` directory contains a `distribution.py` file, which has an abstract base class `Distribution` from which all distributions are built. This class is further built upon in `distributions/continuous/continuous_distribution.py` and `distributions/discrete/discrete_distribution.py` respectively, which have abstract classes `ContinuousDistribution` and `DiscreteDistribution`. The purpose of these abstract classes is primarily to make sure that probabilty density and mass functions (PDFs/PMFs) and cumulative distribution functions (CDFs) are enforced when new distributions are added to SDATools.
 
 The `functions` directory contains Python files for non-standard functions that are desirable to have throughout the SDATools package. As of version 0.1.0, this directory only contains `erf.py`, a numerical approximation of the error function `erf(x)` (for use in the calculation of the CDF for the Normal distribution),
 

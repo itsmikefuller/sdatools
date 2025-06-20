@@ -71,10 +71,6 @@ class BinomialDistribution(DiscreteDistribution):
         """Variance of the binomial distribution."""
         return self.n * self.p * (1 - self.p)
     
-    def stddev(self) -> float:
-        """Standard deviation of the binomial distribution."""
-        return sqrt(self.variance())
-    
     def mode(self) -> int:
         """Mode of the binomial distribution.
         

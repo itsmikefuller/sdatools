@@ -91,6 +91,12 @@ class NormalDistribution(ContinuousDistribution):
 
     def variance(self) -> float:
         return self.sigma ** 2
+    
+    def skewness(self) -> float:
+        return 0.0
+    
+    def kurtosis(self) -> float:
+        return 3.0
 
     def pdf(self, x: float) -> float:
         """Calculate the probability density function of the normal distribution"""
