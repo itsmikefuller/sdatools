@@ -1,4 +1,4 @@
-from math import comb, exp, sqrt, pi
+from math import comb, exp, sqrt
 
 from sdatools.distributions.discrete.discrete_distribution import DiscreteDistribution
 
@@ -54,6 +54,13 @@ class PoissonDistribution(DiscreteDistribution):
         if k < 0 or not isinstance(k, int):
             raise ValueError("k must be a non-negative integer.")
         return sum(self.pmf(i) for i in range(0, k + 1))
+
+    def domain(self) -> list[int]:
+        # Find maximum integer that produces PMF above machine epsilon
+        k = 0
+        while self.pmf(k) > 1e-10:
+            k += 1
+        return list(range(0, k + 1))
     
     def mean(self) -> float:
         return self.lam

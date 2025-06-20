@@ -40,6 +40,9 @@ class BinomialDistribution(DiscreteDistribution):
         """Return a hash value for the binomial distribution."""
         return hash((self.n, self.p))
     
+    def domain(self) -> list[int]:
+        return list(range(0, self.n + 1))
+
     def pmf(self, k: int) -> float:
         """Probability Mass Function for the binomial distribution.
         
@@ -97,12 +100,3 @@ class BinomialDistribution(DiscreteDistribution):
             return 0.0
         return (1 - 6 * self.p * (1 - self.p)) / (self.n * self.p * (1 - self.p))
     
-    def sample(self, size: int = 1) -> list[int]:
-        """Generate a sample of size `size` from the binomial distribution."""
-        if size <= 0:
-            raise ValueError("Sample size must be a positive integer.")
-        if not isinstance(size, int):
-            raise ValueError("Sample size must be an integer.")
-        
-        from random import choices
-        return choices(range(self.n + 1), weights=[self.pmf(k) for k in range(self.n + 1)], k=size)

@@ -20,6 +20,9 @@ class DiscreteDistribution(Distribution):
         """Cumulative Distribution Function"""
         pass
 
+    # TODO: Determine a better way to sample for discrete distributions.
+    # The current implementation uses the domain and PMF to generate samples.
+    # For e.g. Poisson, where terms in the PMF are very large/small, we get an overflow error.
     def sample(self, size: int = 1) -> list[float]:
         """Generate a sample of size `size` from the discrete distribution."""
         if size <= 0:
