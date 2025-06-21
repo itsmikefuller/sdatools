@@ -25,7 +25,7 @@ class Distribution(ABC):
         pass
 
     @abstractmethod
-    def domain(self):
+    def domain(self) -> list[float]:
         pass
 
     @abstractmethod

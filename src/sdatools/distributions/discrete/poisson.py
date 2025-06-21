@@ -1,4 +1,4 @@
-from math import comb, exp, sqrt
+from math import log, comb, exp, sqrt
 
 from sdatools.distributions.discrete.discrete_distribution import DiscreteDistribution
 
@@ -44,7 +44,9 @@ class PoissonDistribution(DiscreteDistribution):
         """
         if k < 0 or not isinstance(k, int):
             raise ValueError("k must be a non-negative integer.")
-        return (self.lam ** k * exp(-self.lam)) / comb(k, k)
+        
+        log_pmf = self.lam * k - self.lam - sum(log(i) for i in range(1, k + 1)) if k > 0 else -self.lam
+        return exp(log_pmf)
     
     def cdf(self, k: int) -> float:
         """Cumulative Distribution Function for the Poisson distribution.
@@ -55,7 +57,7 @@ class PoissonDistribution(DiscreteDistribution):
             raise ValueError("k must be a non-negative integer.")
         return sum(self.pmf(i) for i in range(0, k + 1))
 
-    def domain(self) -> list[int]:
+    def domain(self) -> list[float]:
         # Find maximum integer that produces PMF above machine epsilon
         k = 0
         while self.pmf(k) > 1e-10:

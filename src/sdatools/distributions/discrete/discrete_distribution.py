@@ -11,12 +11,12 @@ class DiscreteDistribution(Distribution):
         pass
     
     @abstractmethod
-    def pmf(self, k: float) -> float:
+    def pmf(self, k) -> float:
         """Probability Mass Function"""
         pass
 
     @abstractmethod
-    def cdf(self, k: float) -> float:
+    def cdf(self, k) -> float:
         """Cumulative Distribution Function"""
         pass
 
