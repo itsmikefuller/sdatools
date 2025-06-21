@@ -1,12 +1,12 @@
-# SDATools: Statistics & Data Analysis Tools
+# sdatools: Statistics & Data Analysis Tools
 
 **Author:** Mike Fuller
 
-**Last Updated:** 20th June 2025
+**Last Updated:** 21st June 2025
 
-This repository contains the source code for **SDATools**, a Python package I created to reinforce my understanding of various statistics and data analysis tools, whilst getting hands-on with Python to build a functioning package that myself and others can use to carry out statistical tests and data analysis.
+This repository contains the source code for `sdatools`, a Python package I am building to refresh my understanding of various statistics and data analysis tools with a bottom-up approach. whilst getting hands-on with Python to build a functioning package that myself and others can use.
 
-SDATools has the following structure:
+`sdatools` has the following structure:
 ```bash
 ├───src
 │   └───sdatools
@@ -27,4 +27,4 @@ The `numerical_methods` directory will contain algorithms and approximation tech
 
 Finally, the `statistics` directory - not properly started in v0.1.0 - will contain statistical techniques and tests that an end user can leverage for research / data analysis purposes. Currently, the directory only includes an early-stages version of a summary statistics file, `summary_statistics.py`.
 
-As I add more functionality to the SDATools package, I am also producing unit tests in the `tests` directory to check that the package's components are behaving as expected.
+As I add more functionality to the `sdatools` package, I am also producing unit tests in the `tests` directory to check that the package's components are behaving as expected.

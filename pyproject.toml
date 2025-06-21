@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = [
   { name="Michael J. Fuller", email="michaeljosephfuller@gmail.com" },
 ]
-description = "A collection of tools for statistics and data analysis"
+description = "Python package containing statistics and data analysis tools"
 readme = "README.md"
 requires-python = ">=3.10.9"
 classifiers = [
@@ -15,8 +15,8 @@ license = "MIT"
 license-files = ["LICEN[CS]E*"]
 
 [project.urls]
-Homepage = "https://github.com/itsmikefuller/stats_and_data_analysis_tools"
-Issues = "https://github.com/itsmikefuller/stats_and_data_analysis_tools/issues"
+Homepage = "https://github.com/itsmikefuller/sdatools"
+Issues = "https://github.com/itsmikefuller/sdatools/issues"
 
 [build-system]
 requires = ["setuptools", "wheel"]
