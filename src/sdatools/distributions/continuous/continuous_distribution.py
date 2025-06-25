@@ -4,6 +4,7 @@ from sdatools.distributions.base_distribution import Distribution
 
 
 class ContinuousDistribution(Distribution):
+    '''A base class for continuous probability distributions.'''
 
     @abstractmethod
     def pdf(self, x: float) -> float:

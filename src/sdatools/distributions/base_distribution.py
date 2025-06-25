@@ -4,6 +4,7 @@ from math import sqrt
 
 
 class Distribution(ABC):
+    '''A base class for probability distributions.'''
 
     @abstractmethod
     def mean(self) -> float:

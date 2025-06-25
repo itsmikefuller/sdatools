@@ -5,6 +5,7 @@ from sdatools.distributions.base_distribution import Distribution
 
 
 class DiscreteDistribution(Distribution):
+    '''A base class for discrete probability distributions.'''
 
     @abstractmethod
     def domain(self) -> list[float]:
