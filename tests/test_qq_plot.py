@@ -10,12 +10,12 @@ def test_qq_plot_uniform():
     uniform_dist = UniformDistribution(0, 1)
 
     # Generate sample quantiles from the uniform distribution
-    sample_quantiles = uniform_dist.sample(100)
+    sample_quantiles: list[float] = uniform_dist.sample(100)
     sample_quantiles.sort()
 
     # Generate theoretical quantiles for the uniform distribution
     probs = np.linspace(0.01, 0.99, 100)
-    theoretical_quantiles = [uniform_dist.inverse_cdf(p) for p in probs]
+    theoretical_quantiles: list[float] = [uniform_dist.inverse_cdf(p) for p in probs]
     theoretical_quantiles.sort()
 
     # Create a QQPlot instance
@@ -34,12 +34,12 @@ def test_qq_plot_normal():
     normal_dist = NormalDistribution(0, 1)
 
     # Generate sample quantiles from the normal distribution
-    sample_quantiles = normal_dist.sample(100)
+    sample_quantiles: list[float] = normal_dist.sample(100)
     sample_quantiles.sort()
 
     # Generate theoretical quantiles for the normal distribution
     probs = np.linspace(0.01, 0.99, 100)
-    theoretical_quantiles = [normal_dist.inverse_cdf(p) for p in probs]
+    theoretical_quantiles: list[float] = [normal_dist.inverse_cdf(p) for p in probs]
     theoretical_quantiles.sort()
 
     # Create a QQPlot instance
