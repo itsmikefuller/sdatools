@@ -39,3 +39,9 @@ class QQPlot:
         plt.grid()
         if show_plot: plt.show() 
         return plt
+
+    def check_distribution(self, sample_quantiles):
+        '''Check if the sample quantiles follow the theoretical distribution.'''
+        # TODO: This method can be implemented to perform statistical tests like Kolmogorov-Smirnov test
+        # or Shapiro-Wilk test to check if the sample follows the theoretical distribution.
+        pass

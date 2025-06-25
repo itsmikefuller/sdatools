@@ -81,3 +81,10 @@ class UniformDistribution(ContinuousDistribution):
         if not isinstance(size, int):
             raise ValueError("Sample size must be an integer.")
         return np.random.uniform(low=self.a, high=self.b, size=size).tolist()
+    
+    def inverse_cdf(self, p: float) -> float:
+        """Calculate the quantile function (inverse CDF) for the uniform distribution."""
+        if not (0 <= p <= 1):
+            raise ValueError("Probability p must be in the range [0, 1].")
+        return self.a + p * (self.b - self.a)
+    

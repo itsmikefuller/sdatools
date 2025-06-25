@@ -1,5 +1,6 @@
 from math import exp, sqrt, pi
 import numpy as np
+from scipy.stats import norm
 
 from sdatools.functions.erf import erf
 from sdatools.distributions.continuous.continuous_distribution import ContinuousDistribution
@@ -105,7 +106,7 @@ class NormalDistribution(ContinuousDistribution):
     
     def cdf(self, x: float) -> float:
         """Calculate the cumulative distribution function of the standard normal distribution:
-        cdf(x) = \int_{-\infty}^{x} (1 / sqrt(2 * pi)) * exp(-t^2 / 2) dt"""
+        cdf(x) = int_{-inf}^{x} (1 / sqrt(2 * pi)) * exp(-t^2 / 2) dt"""
         # TODO: Implement using quadrature 
         return 0.5 * (1 + erf(x / sqrt(2)))
     
@@ -117,3 +118,10 @@ class NormalDistribution(ContinuousDistribution):
         if not isinstance(size, int):
             raise ValueError("Sample size must be an integer.")
         return np.random.normal(loc=self.mu, scale=self.sigma, size=size).tolist()
+    
+    def inverse_cdf(self, p: float) -> float:
+        """Calculate the quantile function (inverse CDF) for the normal distribution."""
+        if not (0 <= p <= 1):
+            raise ValueError("Probability p must be in the range [0, 1].")
+        # TODO: Implement without using scipy for educational purposes
+        return float(norm.ppf(p, loc=self.mu, scale=self.sigma))
