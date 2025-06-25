@@ -13,8 +13,7 @@ def test_qq_plot_uniform():
     theoretical_quantiles = np.linspace(0, 1, 100)
 
     # Generate sample quantiles from the uniform distribution
-    # TODO: Replace with actual sample quantiles from UniformDistribution class
-    sample_quantiles = np.random.uniform(0, 1, 100)
+    sample_quantiles = uniform_dist.sample(100)
 
     # Create a QQPlot instance
     qq_plot = QQPlot(theoretical_distribution=uniform_dist)
@@ -35,8 +34,7 @@ def test_qq_plot_normal():
     theoretical_quantiles = np.linspace(-3, 3, 100)
 
     # Generate sample quantiles from the normal distribution
-    # TODO: Replace with actual sample quantiles from NormalDistribution class
-    sample_quantiles = np.random.normal(0, 1, 100)
+    sample_quantiles = normal_dist.sample(100)
 
     # Create a QQPlot instance
     qq_plot = QQPlot(theoretical_distribution=normal_dist)

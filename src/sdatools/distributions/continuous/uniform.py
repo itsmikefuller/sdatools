@@ -1,5 +1,7 @@
 from sdatools.distributions.continuous.continuous_distribution import ContinuousDistribution
 
+import numpy as np
+
 
 class UniformDistribution(ContinuousDistribution):
     '''A class representing a Uniform distribution on the interval [a, b].
@@ -71,3 +73,11 @@ class UniformDistribution(ContinuousDistribution):
         """Domain of the uniform distribution."""
         return [self.a, self.b]
     
+    def sample(self, size: int = 1) -> list[float]:
+        """Generate a sample of size `size` from the uniform distribution."""
+        # TODO: Implement sample method for uniform distribution manually
+        if size <= 0:
+            raise ValueError("Sample size must be a positive integer.")
+        if not isinstance(size, int):
+            raise ValueError("Sample size must be an integer.")
+        return np.random.uniform(low=self.a, high=self.b, size=size).tolist()

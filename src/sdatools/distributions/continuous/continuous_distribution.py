@@ -19,6 +19,7 @@ class ContinuousDistribution(Distribution):
     def domain(self):
         raise NotImplementedError("Domain method is not implemented for this continuous distribution.")
 
+    @abstractmethod
     def sample(self, size: int = 1) -> list[float]:
         """Generate a sample of size `size` from the continuous distribution."""
         if size <= 0:

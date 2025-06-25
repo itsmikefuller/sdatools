@@ -1,4 +1,5 @@
 from math import exp, sqrt, pi
+import numpy as np
 
 from sdatools.functions.erf import erf
 from sdatools.distributions.continuous.continuous_distribution import ContinuousDistribution
@@ -107,3 +108,12 @@ class NormalDistribution(ContinuousDistribution):
         cdf(x) = \int_{-\infty}^{x} (1 / sqrt(2 * pi)) * exp(-t^2 / 2) dt"""
         # TODO: Implement using quadrature 
         return 0.5 * (1 + erf(x / sqrt(2)))
+    
+    def sample(self, size: int = 1) -> list[float]:
+        """Generate n samples from the normal distribution."""
+        # TODO: Implement manually using Box-Muller transform or similar method
+        if size <= 0:
+            raise ValueError("Sample size must be a positive integer.")
+        if not isinstance(size, int):
+            raise ValueError("Sample size must be an integer.")
+        return np.random.normal(loc=self.mu, scale=self.sigma, size=size).tolist()
