@@ -1,7 +1,9 @@
 from typing import Callable
 
+from sdatools.core.base_function import Function
 
-class Function:
+
+class NumericFunction(Function):
     """
     A class to represent a mathematical function with various operations and properties.
     It supports addition, subtraction, multiplication, division, power operations,
@@ -32,66 +34,47 @@ class Function:
         derivative(self, var_index=0, h=1e-5, *args, **kwargs): Calculate the derivative of the function using finite differences.
     
     """
-    def __init__(self, func: Callable, name=None):
+    def __init__(self, func: Callable):
         self.func = func
-        self.name = name or func.__name__
     
     def __call__(self, *args, **kwargs):
         """Call the function with the given arguments."""
         return self.func(*args, **kwargs)
     
-    def __repr__(self):
-        """Return a string representation of the function."""
-        return f"Function(name={self.name})"
-    
-    def __str__(self):
-        """Return a string representation of the function."""
-        return f"Function: {self.name}()"
-    
-    def __eq__(self, other):
-        """Check if two functions are equal by comparing their names."""
-        if isinstance(other, Function):
-            return self.name == other.name
-        return False
-    
-    def __hash__(self):
-        """Return a hash based on the function's name."""
-        return hash(self.name)
-    
-    def __add__(self, other):
+    def __add__(self, other) -> 'NumericFunction':
         """Add two functions together."""
-        if isinstance(other, Function):
-            return Function(lambda x: self.func(x) + other.func(x), name=f"{self.name} + {other.name}")
+        if isinstance(other, NumericFunction):
+            return NumericFunction(lambda *args, **kwargs: self(*args, **kwargs) + other(*args, **kwargs))
         raise TypeError("Can only add Function instances.")
     
     def __sub__(self, other):
         """Subtract one function from another."""
-        if isinstance(other, Function):
-            return Function(lambda x: self.func(x) - other.func(x), name=f"{self.name} - {other.name}")
+        if isinstance(other, NumericFunction):
+            return NumericFunction(lambda *args, **kwargs: self(*args, **kwargs) - other(*args, **kwargs))
         raise TypeError("Can only subtract Function instances.")
     
     def __mul__(self, other):
         """Multiply two functions together."""
-        if isinstance(other, Function):
-            return Function(lambda x: self.func(x) * other.func(x), name=f"{self.name} * {other.name}")
+        if isinstance(other, NumericFunction):
+            return NumericFunction(lambda *args, **kwargs: self(*args, **kwargs) * other(*args, **kwargs))
         raise TypeError("Can only multiply Function instances.")
     
     def __rmul__(self, other):
         """Right-multiply a function by another."""
-        if isinstance(other, Function):
-            return Function(lambda x: other.func(x) * self.func(x), name=f"{other.name} * {self.name}")
+        if isinstance(other, NumericFunction):
+            return NumericFunction(lambda *args, **kwargs: other(*args, **kwargs) * self(*args, **kwargs))
         raise TypeError("Can only multiply Function instances.")
     
     def __truediv__(self, other):
         """Divide one function by another."""
-        if isinstance(other, Function):
-            return Function(lambda x: self.func(x) / other.func(x), name=f"{self.name} / {other.name}")
+        if isinstance(other, NumericFunction):
+            return NumericFunction(lambda *args, **kwargs: self(*args, **kwargs) / other(*args, **kwargs))
         raise TypeError("Can only divide Function instances.")
     
     def __pow__(self, power):
         """Raise a function to a power."""
         if isinstance(power, (int, float)):
-            return Function(lambda x: self.func(x) ** power, name=f"{self.name} ** {power}")
+            return NumericFunction(lambda *args, **kwargs: self(*args, **kwargs) ** power)
         raise TypeError("Power must be an integer or float.")
     
     def derivative(self, var_index=0, h=1e-5, *args, **kwargs):
@@ -121,4 +104,11 @@ class Function:
         f_minus = self.func(*args, **kwargs)
         args[var_index] = original_value
         return (f_plus - f_minus) / (2 * h)
+    
+    def integrate(self, *args, **kwargs):
+        """
+        Placeholder for integration method.
+        This should be implemented in subclasses or using numerical methods.
+        """
+        raise NotImplementedError("Integration method is not implemented.")
     
