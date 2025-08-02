@@ -15,44 +15,12 @@ This repository contains the source code for `sdatools`, a **work-in-progress** 
 
 ## Contents
 
-- [Source Code Layout](#source-code-layout)
+- [Key Features](#key-features)
 - [Tests & Case Studies](#tests--case-studies)
+- [Source Code Layout](#source-code-layout)
 - [Ongoing Development](#ongoing-development)
 
-## Source Code Layout
-
-The `sdatools` source code has the following structure:
-```bash
-└───src
-    └───sdatools
-        ├───core
-        │   └───functions
-        ├───data_visualisation
-        ├───distributions
-        │   ├───continuous
-        │   └───discrete
-        ├───numerical_methods
-        │   ├───interpolation
-        │   ├───matrix_factorisation
-        │   ├───optimisation
-        │   ├───quadrature
-        │   └───root_finding
-        ├───parameter_estimation
-        ├───supervised_learning
-        │   ├───decision_tree
-        │   ├───k_nearest_neighbours
-        │   ├───linear_regression
-        │   ├───logistic_regression
-        │   ├───neural_network
-        │   └───support_vector_machine
-        ├───unsupervised_learning
-        │   ├───clustering
-        │   ├───dimensionality_reduction
-        │   └───neural_network
-        └───validation
-            ├───cross_validation
-            └───goodness_of_fit
-```
+## Key Features
 
 ### `sdatools.core`
 
@@ -105,6 +73,42 @@ Will contain a selection of statistical techniques and tests that an end user ca
 ## Tests & Case Studies
 
 Outside of the source code, this repository has `case_studies` and `tests`. I am regularly producing unit tests in the `tests` directory to check that the package's components are behaving as expected. In due course, I will also add real-world examples of using `sda_tools` to the `case_studies` directory, along with more documentation to this README and throughout the package.
+
+## Source Code Layout
+
+The `sdatools` source code has the following structure:
+
+```bash
+└───src
+    └───sdatools
+        ├───core
+        │   └───functions
+        ├───data_visualisation
+        ├───distributions
+        │   ├───continuous
+        │   └───discrete
+        ├───numerical_methods
+        │   ├───interpolation
+        │   ├───matrix_factorisation
+        │   ├───optimisation
+        │   ├───quadrature
+        │   └───root_finding
+        ├───parameter_estimation
+        ├───supervised_learning
+        │   ├───decision_tree
+        │   ├───k_nearest_neighbours
+        │   ├───linear_regression
+        │   ├───logistic_regression
+        │   ├───neural_network
+        │   └───support_vector_machine
+        ├───unsupervised_learning
+        │   ├───clustering
+        │   ├───dimensionality_reduction
+        │   └───neural_network
+        └───validation
+            ├───cross_validation
+            └───goodness_of_fit
+```
 
 ## Ongoing Development
 
