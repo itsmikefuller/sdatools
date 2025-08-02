@@ -26,7 +26,7 @@ The `sdatools` source code has the following structure:
 └───src
     └───sdatools
         ├───core
-        |   └───functions
+        │   └───functions
         ├───data_visualisation
         ├───distributions
         │   ├───continuous
@@ -42,13 +42,13 @@ The `sdatools` source code has the following structure:
         │   ├───decision_tree
         │   ├───k_nearest_neighbours
         │   ├───linear_regression
-        |   ├───logistic_regression
-        |   ├───neural_network
-        |   └───support_vector_machine
+        │   ├───logistic_regression
+        │   ├───neural_network
+        │   └───support_vector_machine
         ├───unsupervised_learning
         │   ├───clustering
-        |   ├───dimensionality_reduction
-        |   └───neural_network
+        │   ├───dimensionality_reduction
+        │   └───neural_network
         └───validation
             ├───cross_validation
             └───goodness_of_fit
