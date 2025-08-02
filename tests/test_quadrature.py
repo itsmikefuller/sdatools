@@ -1,6 +1,6 @@
 from typing import Callable
 
-from sdatools.numerical_methods.quadrature import (
+from sdatools.numerical_methods.quadrature.quadrature import (
     TrapeziumRule,
     SimpsonRule,
     Simpson38Rule,

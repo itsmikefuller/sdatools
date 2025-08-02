@@ -2,7 +2,7 @@ from math import exp, sqrt, pi
 import numpy as np
 from scipy.stats import norm
 
-from sdatools.functions.erf import erf
+from sdatools.core.functions.erf import erf
 from sdatools.distributions.continuous.continuous_distribution import ContinuousDistribution
 
 

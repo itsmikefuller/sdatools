@@ -1,4 +1,4 @@
-from sdatools.core.numeric_function import NumericFunction
+from sdatools.core.functions.numeric_function import NumericFunction
 
 # TODO: Fix Function derivative() method and update this code accordingly.
 

@@ -1,4 +1,4 @@
-from sdatools.statistics.goodness_of_fit.qq_plot import QQPlot
+from sdatools.data_visualisation.qq_plot import QQPlot
 
 
 def test_qq_plot_uniform():
