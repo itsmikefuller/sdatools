@@ -30,7 +30,7 @@ The `functions` sub-module will contain Python files for non-standard functions 
 
 The vision is to allow functions in `sdatools` to be treated as symbolic for as long as possible, until defaulting to a numeric function, so that various computations can be made quicker by using an exact solution.
 
-### `sdatools.data_visualisation`
+### [`sdatools.data_visualisation`](https://github.com/itsmikefuller/sdatools/tree/main/src/sdatools/data_visualisation)
 
 Will contain a selection of data visualisation classes for eventual use in a model validation dashboard, for example. Q-Q plots have been partially implemented. Further visualisations to be implemented include:
 - Biplots
@@ -41,15 +41,15 @@ Will contain a selection of data visualisation classes for eventual use in a mod
 - P-P plots
 - Scree plots
 
-### `sdatools.distributions`
+### [`sdatools.distributions`](https://github.com/itsmikefuller/sdatools/tree/main/src/sdatools/distributions)
 
 Contains a suite of continuous and discrete distributions. The `base_distribution.py` file contains an abstract base class, `Distribution`, from which all distributions are built. This class is further built upon in the `continuous` and `discrete` sub-modules, which have abstract classes `ContinuousDistribution` and `DiscreteDistribution` respectively. The purpose of these abstract classes is to make sure that probabilty density functions (PDFs), probability mass functions (PMFs), and cumulative distribution functions (CDFs) are enforced whenever new distributions are added to `sdatools`.
 
-### `sdatools.numerical_methods`
+### [`sdatools.numerical_methods`](https://github.com/itsmikefuller/sdatools/tree/main/src/sdatools/numerical_methods)
 
 Will contain algorithms and approximation techniques that will be desirable across the `sdatools` package. As of version 0.1.0, the `quadrature` sub-module has been populated with a range of Newton-Cotes qudarature rules (Trapezium, Simpson, Simpson 3/8, Boole), and has been abstracted with the `QuadratureRule` base class for ease of future quadrature rule additions.
 
-### `sdatools.parameter_estimation`
+### [`sdatools.parameter_estimation`](https://github.com/itsmikefuller/sdatools/tree/main/src/sdatools/parameter_estimation)
 
 Will contain techniques for estimating distribution parameters from a dataset and assessing the accuracy of the parameters, such as maximum likelihood estimation (MLE) and confidence intervals.
 
