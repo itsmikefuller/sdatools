@@ -6,6 +6,14 @@ from math import sqrt
 class Distribution(ABC):
     '''A base class for probability distributions.'''
 
+    # Domain
+    
+    @abstractmethod
+    def domain(self) -> list[float]:
+        pass
+    
+    # Moments
+    
     @abstractmethod
     def mean(self) -> float:
         pass
@@ -25,13 +33,11 @@ class Distribution(ABC):
     def kurtosis(self) -> float:
         pass
 
-    @abstractmethod
-    def domain(self) -> list[float]:
-        pass
+    # Sampling
 
-    @abstractmethod
-    def sample(self, size: int = 1) -> list[float]:
-        pass
+    # @abstractmethod
+    # def sample(self, size: int = 1) -> list[float]:
+    #     pass
 
     def sample_mean_distribution(self, n):
         pass

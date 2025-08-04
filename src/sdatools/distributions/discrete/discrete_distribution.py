@@ -7,9 +7,7 @@ from sdatools.distributions.base_distribution import Distribution
 class DiscreteDistribution(Distribution):
     '''A base class for discrete probability distributions.'''
 
-    @abstractmethod
-    def domain(self) -> list[float]:
-        pass
+    # Distribution functions
     
     @abstractmethod
     def pmf(self, k) -> float:
@@ -20,6 +18,8 @@ class DiscreteDistribution(Distribution):
     def cdf(self, k) -> float:
         """Cumulative Distribution Function"""
         pass
+
+    # Sampling
 
     # TODO: Determine a better way to sample for discrete distributions.
     # The current implementation uses the domain and PMF to generate samples.

@@ -1,5 +1,7 @@
 from sdatools.data_visualisation.qq_plot import QQPlot
 
+import datetime
+
 
 def test_qq_plot_uniform():
     """Test the QQPlot class with a Uniform(0, 1) distribution."""
@@ -47,3 +49,9 @@ def test_qq_plot_normal():
 
     # Plot the QQ plot
     qq_plot.plot(theoretical_quantiles, sample_quantiles, show_plot=True)
+
+    # Save the figure
+    # Check image manually for correctness!
+    now = datetime.datetime.now()
+    timestamp = now.strftime("%Y_%m_%d_%H_%M_%S")
+    qq_plot.save_fig(f'tests/images/{timestamp}_test_qq_plot_normal.png')

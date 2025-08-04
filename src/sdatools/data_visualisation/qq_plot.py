@@ -16,26 +16,36 @@ class QQPlot:
     '''
     def __init__(self, theoretical_distribution: Distribution):
         self.theoretical_distribution = theoretical_distribution
+        self._fig, self._ax = plt.subplots(figsize=(8, 8))
 
     def plot(self, theoretical_quantiles, sample_quantiles, show_plot: bool = False):
         '''Plot the quantiles of the sample against the theoretical quantiles.'''
-        # Ensure that theoretical_quantiles and sample_quantiles are numpy arrays
+        # Check that theoretical_quantiles and sample_quantiles are numpy arrays
         theoretical_quantiles = np.asarray(theoretical_quantiles)
         sample_quantiles = np.asarray(sample_quantiles)
 
+        # Clear any previous content
+        self._ax.clear()
+
         # Create the QQ plot
-        plt.figure(figsize=(8, 8))
-        plt.scatter(theoretical_quantiles, sample_quantiles, color='blue', label='Sample Quantiles')
+        self._ax.scatter(theoretical_quantiles, sample_quantiles, color='blue', label='Sample Quantiles')
         
-        # Add a 45-degree line for reference
+        # Add y=x line
         max_val = max(np.max(theoretical_quantiles), np.max(sample_quantiles))
         min_val = min(np.min(theoretical_quantiles), np.min(sample_quantiles))
-        plt.plot([min_val, max_val], [min_val, max_val], color='red', linestyle='--', label='y=x Line')
+        self._ax.plot([min_val, max_val], [min_val, max_val], color='red', linestyle='--', label='y=x Line')
 
-        plt.title('Quantile-Quantile Plot')
-        plt.xlabel('Theoretical Quantiles')
-        plt.ylabel('Sample Quantiles')
-        plt.legend()
-        plt.grid()
-        if show_plot: plt.show() 
-        return plt
+        # Set labels and title
+        self._ax.set_title('Quantile-Quantile Plot')
+        self._ax.set_xlabel('Theoretical Quantiles')
+        self._ax.set_ylabel('Sample Quantiles')
+        self._ax.legend()
+        self._ax.grid(True)
+
+        if show_plot: 
+            plt.show() 
+
+        return self._fig
+    
+    def save_fig(self, filename: str):
+        self._fig.savefig(filename)

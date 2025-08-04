@@ -1,8 +1,8 @@
 from sdatools.distributions.continuous.normal import NormalDistribution
 
 
-def test_normal_distribution_operations():
-    """Test operations on NormalDistribution instances."""
+def test_normal_distribution_special_methods():
+
     # Create two normal distributions
     dist1 = NormalDistribution(mu=5, sigma=2)
     dist2 = NormalDistribution(mu=3, sigma=4)
