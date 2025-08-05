@@ -1,8 +1,12 @@
 # `sdatools.parameter_estimation`
 
-This module provides a suite of methods for estimating the parameters of distributions.
+This module provides a suite of methods for estimating the parameters of distributions. So far, the Method of Moments method has been implemented and is compatible with the following distributions:
 
-Only the Method of Moments method has been implemented so far.
+- Normal - $N(\mu,\sigma^2)$
+- Exponential - $\text{Exp}(\lambda)$
+- Gamma - $\text{Gamma}(\alpha, \beta)$
+- Lognormal - $\text{Lognormal}(\mu, \sigma^2)$
+- Skew-normal - $\text{SN}(\xi, \omega, \alpha)$
 
 ## Examples
 
@@ -17,7 +21,7 @@ data = [5.49, 3.59, 5.94, 8.57, 3.3, 3.3, 8.74, 6.3, 2.59, 5.63, 2.61, 2.6, 4.73
 
 # Fit a NormalDistribution
 mom = MethodOfMoments(data)
-fitted_dist = mom.fit(NormalDistribution())
+fitted_dist = mom.fit(NormalDistribution)
 
 # Check the estimated parameters manually
 print(fitted_dist.mean()) # 3.6883000000000004

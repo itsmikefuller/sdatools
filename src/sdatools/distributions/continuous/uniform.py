@@ -51,7 +51,7 @@ class UniformDistribution(ContinuousDistribution):
         return 0.0
     
     def kurtosis(self) -> float:
-        return 1.8
+        return -1.2
 
     # Distribution functions
 

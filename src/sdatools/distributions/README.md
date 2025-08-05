@@ -8,6 +8,8 @@ Continuous distributions currently supported are:
 - Normal - $N(\mu,\sigma^2)$
 - Exponential - $\text{Exp}(\lambda)$
 - Gamma - $\text{Gamma}(\alpha, \beta)$
+- Lognormal - $\text{Lognormal}(\mu, \sigma^2)$
+- Skew-normal - $\text{SN}(\xi, \omega, \alpha)$
 
 Discrete distributions currently supported are:
 

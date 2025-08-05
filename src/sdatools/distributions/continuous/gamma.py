@@ -111,7 +111,7 @@ class GammaDistribution(ContinuousDistribution):
         return 2.0 / sqrt(self.alpha)
     
     def kurtosis(self) -> float:
-        return 6.0 / self.alpha + 3.0
+        return 6.0 / self.alpha
     
     # Distribution functions
 

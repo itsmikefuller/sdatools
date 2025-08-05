@@ -51,7 +51,7 @@ class ExponentialDistribution(ContinuousDistribution):
         return 2.0
     
     def kurtosis(self) -> float:
-        return 9.0
+        return 6.0
     
     # Distribution functions
 

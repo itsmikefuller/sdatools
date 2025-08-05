@@ -111,7 +111,7 @@ class NormalDistribution(ContinuousDistribution):
         return 0.0
     
     def kurtosis(self) -> float:
-        return 3.0
+        return 0.0
     
     # Distribution functions
 

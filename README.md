@@ -1,6 +1,6 @@
 <picture align="center">
-  <source media="(prefers-color-scheme: dark)" srcset="logo.png">
-  <img alt="sdatools Logo" src="logo.png">
+  <source media="(prefers-color-scheme: dark)" srcset="images/logo.png">
+  <img alt="sdatools Logo" src="images/logo.png">
 </picture>
 
 -----------------
@@ -13,10 +13,12 @@
 
 This repository contains the source code for `sdatools`, a **work-in-progress** Python package I am developing to kill two birds with one stone: build my very first Python package whilst refreshing my knowledge of various statistics and data analysis techniques. I am taking a bottom-up approach as much as possible: whilst the package occasionally leverages well-known scientific packages like `numpy`, `pandas`, and `scikit-learn`, I aim to build most modules from scratch.
 
+I am regularly producing unit tests in the [`tests`](https://github.com/itsmikefuller/sdatools/tree/main/tests) directory to check that the package's components are behaving as expected. 
+
 ## Contents
 
 - [Key Features](#key-features)
-- [Tests & Case Studies](#tests--case-studies)
+- [Case Studies](#case-studies)
 - [Source Code Layout](#source-code-layout)
 - [Ongoing Development](#ongoing-development)
 
@@ -70,9 +72,18 @@ The techniques in both supervised and unsupervised learning often seek to ask th
 
 Will contain a selection of statistical techniques and tests that an end user can run for model validation purposes. The `goodness_of_fit` sub-module will contain a variety of statistical tests, such as chi-squared, Kolmogorov-Smirnov, Shapiro-Wilk, and Anderson-Darling. The `cross-validation` sub-module will contain a class for running out-of-sample testing.
 
-## Tests & Case Studies
+## Case Studies
 
-Outside of the source code, this repository has `case_studies` and `tests`. I am regularly producing unit tests in the `tests` directory to check that the package's components are behaving as expected. In due course, I will also add real-world examples of using `sda_tools` to the `case_studies` directory, along with more documentation to this README and throughout the package.
+### [Calibrating a Total Return Index model](https://github.com/itsmikefuller/sdatools/tree/main/case_studies/total_return_index/total_return_index.ipynb)
+
+This case study shows how to use the Method of Moments functionality in `sdatools` to calibrate a Total Return Index (TRI) model to historic data. Such a calibration could then be used to generate stochastic scenarios for the TRI.
+
+For this demonstration, we will use the S&P 500 TRI, obtained from Yahoo Finance using the `yfinance` Python package.
+
+<picture align="center">
+  <source media="(prefers-color-scheme: dark)" srcset="images/total_return_index.png">
+  <img alt="Calibrating a Total Return Index model" src="images/total_return_index.png" width=50%>
+</picture>
 
 ## Source Code Layout
 
@@ -112,4 +123,4 @@ The `sdatools` source code has the following structure:
 
 ## Ongoing Development
 
-My current focus is building out the `distributions` module, as well as a small selection of goodness-of-fit tests in the `validation` module.
+My current focus is building out the `distributions` module, as well as a small selection of goodness-of-fit tests in the `validation` module. Following the [Calibrating a Total Return Index model](https://github.com/itsmikefuller/sdatools/tree/main/case_studies/total_return_index/total_return_index.ipynb) case study, I noted that the current suite of distributions in `sdatools` needs expansion to accomodate distributions with fatter tails.
