@@ -9,7 +9,7 @@
 
 **Author:** Mike Fuller
 
-**Last Updated:** 4th August 2025
+**Last Updated:** 5th August 2025
 
 This repository contains the source code for `sdatools`, a **work-in-progress** Python package I am developing to kill two birds with one stone: build my very first Python package whilst refreshing my knowledge of various statistics and data analysis techniques. I am taking a bottom-up approach as much as possible: whilst the package occasionally leverages well-known scientific packages like `numpy`, `pandas`, and `scikit-learn`, I aim to build most modules from scratch.
 

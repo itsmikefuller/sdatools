@@ -4,7 +4,7 @@
 
 ## Introduction: Linear SVMs
 
-Consider a binary classification problem: that is, where $N$ samples $\{(\underline{x}^{(i)},y^{(i)})\}_{i=1}^N$ of **observations** $\underline{x}^{(i)}\in \mathbb{R}^n$ and **targets** $y^{(i)} \in \{\text{Yes}, \text{No}\}$ are provided, and a classifier function $f$ is sought such that future observations $\underline{x}'$ outside the sample dataset can be appropriately classified (as $\text{Yes}$ or $\text{No}$) via $f(\underline{x}')$.
+Consider a binary classification problem: that is, where $N$ samples $\left\{(\underline{x}^{(i)},y^{(i)})\right\}_{i=1}^N$ of **observations** $\underline{x}^{(i)}\in \mathbb{R}^n$ and **targets** $y^{(i)} \in \{\text{Yes}, \text{No}\}$ are provided, and a classifier function $f$ is sought such that future observations $\underline{x}'$ outside the sample dataset can be appropriately classified (as $\text{Yes}$ or $\text{No}$) via $f(\underline{x}')$.
 
 To illustrate the problem set-up, let's consider a 2D version. In the below, the blue samples represent $\text{Yes}$ obrservations, and red samples represent $\text{No}$ observations:
 
@@ -14,7 +14,7 @@ To illustrate the problem set-up, let's consider a 2D version. In the below, the
 
 The observations are clearly separable by a straight line. The problem can be re-written as finding the parameters $w, b \in \mathbb{R}$ such that the line $y=wx+b$ "best" separates the two groups of observations. In higher dimensions, this generalises to finding the hyperplane 
 
-$$H=\{\underline{x}\in\mathbb{R}^n : \underline{w}^T\underline{x}+\underline{b}=0\}.$$
+$$H=\left\{\underline{x}\in\mathbb{R}^n : \underline{w}^T\underline{x}+\underline{b}=0\right\}.$$
 
 How do we find the "best" line? There seem to be a lot of decent choices. For example, the line $y=\frac{1}{3}x$ separates the classes of red and blue observations:
 
