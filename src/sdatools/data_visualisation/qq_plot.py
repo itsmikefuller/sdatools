@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from sdatools.distributions.base_distribution import Distribution
+from sdatools.distributions import Distribution
 
 
 class QQPlot:

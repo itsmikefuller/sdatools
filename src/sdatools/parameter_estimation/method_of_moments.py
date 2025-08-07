@@ -1,13 +1,14 @@
 import numpy as np
 import pandas as pd
 
-from sdatools.distributions.base_distribution import Distribution
-
-from sdatools.distributions.continuous.normal import NormalDistribution
-from sdatools.distributions.continuous.lognormal import LognormalDistribution
-from sdatools.distributions.continuous.gamma import GammaDistribution
-from sdatools.distributions.continuous.exponential import ExponentialDistribution
-from sdatools.distributions.continuous.skewnormal import SkewNormalDistribution
+from sdatools.distributions import (
+    Distribution,
+    NormalDistribution,
+    LogNormalDistribution,
+    GammaDistribution,
+    ExponentialDistribution,
+    SkewNormalDistribution
+)
 
 
 class MethodOfMoments:
@@ -32,7 +33,7 @@ class MethodOfMoments:
             NormalDistribution: self._fit_normal,
             GammaDistribution: self._fit_gamma,
             ExponentialDistribution: self._fit_exponential,
-            LognormalDistribution: self._fit_lognormal,
+            LogNormalDistribution: self._fit_lognormal,
             SkewNormalDistribution: self._fit_skew_normal
         }
 
@@ -103,10 +104,10 @@ class MethodOfMoments:
         return ExponentialDistribution(lam=lam)
 
 
-    def _fit_lognormal(self) -> LognormalDistribution:
+    def _fit_lognormal(self) -> LogNormalDistribution:
         mu = np.log(self.mean ** 2 / (self.variance + self.mean ** 2))
         sigma = np.sqrt(np.log(1 + (self.variance / self.mean ** 2)))
-        return LognormalDistribution(mu=mu, sigma=sigma)
+        return LogNormalDistribution(mu=mu, sigma=sigma)
     
     
     def _fit_skew_normal(self) -> SkewNormalDistribution:

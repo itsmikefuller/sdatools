@@ -5,7 +5,7 @@ import numpy as np
 
 from sdatools.core.types import SeriesLike
 from sdatools.core.utils import max_SeriesLike, min_SeriesLike
-from sdatools.distributions.continuous.continuous_distribution import ContinuousDistribution
+from sdatools.distributions import ContinuousDistribution
 
 
 class Histogram:

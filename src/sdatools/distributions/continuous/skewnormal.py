@@ -1,10 +1,9 @@
-from math import exp, sqrt, pi
-import numpy as np
+from math import sqrt, pi
 from scipy.stats import skewnorm
 
-from sdatools.core.functions import erf, phi, Phi
+from sdatools.core.functions import phi, Phi
 from sdatools.core.utils import vectorise_input, validate_probability
-from sdatools.distributions.continuous.continuous_distribution import ContinuousDistribution
+from sdatools.distributions import ContinuousDistribution
 
 
 class SkewNormalDistribution(ContinuousDistribution):

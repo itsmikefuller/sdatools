@@ -4,10 +4,10 @@ from scipy.stats import lognorm
 
 from sdatools.core.functions import Phi
 from sdatools.core.utils import vectorise_input, validate_probability
-from sdatools.distributions.continuous.continuous_distribution import ContinuousDistribution
+from sdatools.distributions import ContinuousDistribution
 
 
-class LognormalDistribution(ContinuousDistribution):
+class LogNormalDistribution(ContinuousDistribution):
     """
     A class representing a lognormal distribution with mean mu and standard deviation sigma
     
@@ -29,19 +29,19 @@ class LognormalDistribution(ContinuousDistribution):
         return f"Lognormal({self.mu}, {self.sigma ** 2})"
 
     def __eq__(self, other: object) -> bool:
-        if not isinstance(other, LognormalDistribution):
+        if not isinstance(other, LogNormalDistribution):
             return NotImplemented
         return self.mu == other.mu and self.sigma == other.sigma    
 
     def __ne__(self, other: object) -> bool:
-        if not isinstance(other, LognormalDistribution):
+        if not isinstance(other, LogNormalDistribution):
             return NotImplemented
         return not self.__eq__(other)
     
     def __hash__(self) -> int:
         return hash((self.mu, self.sigma))
 
-    def __mul__(self, scalar) -> 'LognormalDistribution':
+    def __mul__(self, scalar) -> 'LogNormalDistribution':
         """
         Left multiplication to allow LognormalDistribution * scalar
 
@@ -49,7 +49,7 @@ class LognormalDistribution(ContinuousDistribution):
         """
         if not isinstance(scalar, (int, float)):
             raise TypeError("Can only multiply by a scalar (int or float).")
-        return LognormalDistribution(self.mu + scalar, self.sigma)
+        return LogNormalDistribution(self.mu + scalar, self.sigma)
     
     def __rmul__(self, other):
         """
@@ -57,7 +57,7 @@ class LognormalDistribution(ContinuousDistribution):
         """
         return self.__mul__(other)
 
-    def __truediv__(self, scalar) -> 'LognormalDistribution':
+    def __truediv__(self, scalar) -> 'LogNormalDistribution':
         """
         Divide the normal distribution by a scalar
 
@@ -65,7 +65,7 @@ class LognormalDistribution(ContinuousDistribution):
         """
         if not isinstance(scalar, (int, float)) or scalar == 0:
             raise ValueError("Can only divide by a non-zero scalar (int or float).")
-        return LognormalDistribution(self.mu - scalar, self.sigma)
+        return LogNormalDistribution(self.mu - scalar, self.sigma)
     
     # Domain
 

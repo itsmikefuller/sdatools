@@ -1,6 +1,6 @@
-from sdatools.distributions.continuous.continuous_distribution import ContinuousDistribution
-
 import numpy as np
+
+from sdatools.distributions import ContinuousDistribution
 
 
 class UniformDistribution(ContinuousDistribution):

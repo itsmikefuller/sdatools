@@ -4,12 +4,14 @@ from math import sqrt
 
 
 class Distribution(ABC):
-    '''A base class for probability distributions.'''
+    """
+    A base class for all probability distributions
+    """
 
     # Domain
     
     @abstractmethod
-    def domain(self) -> list[float]:
+    def domain(self) -> list[int] | list[float]:
         """
         Returns the domain of the distribution
 

@@ -1,10 +1,8 @@
-from math import exp, sqrt, pi, gamma
-import numpy as np
+from math import exp, sqrt, gamma
 from scipy.special import gammainc
 
-from sdatools.core.functions import erf
 from sdatools.core.utils import vectorise_input, validate_probability
-from sdatools.distributions.continuous.continuous_distribution import ContinuousDistribution
+from sdatools.distributions import ContinuousDistribution
 
 
 class GammaDistribution(ContinuousDistribution):

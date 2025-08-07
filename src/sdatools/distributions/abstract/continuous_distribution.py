@@ -1,11 +1,13 @@
 from abc import abstractmethod
 
 from sdatools.core.types import NumericLike, SeriesLike
-from sdatools.distributions.base_distribution import Distribution
+from sdatools.distributions import Distribution
 
 
 class ContinuousDistribution(Distribution):
-    '''A base class for continuous probability distributions.'''
+    """
+    A base class for continuous probability distributions
+    """
  
     # Distribution functions
     

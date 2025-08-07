@@ -1,6 +1,6 @@
-from math import exp, sqrt, pi
+from math import exp
 
-from sdatools.distributions.continuous.continuous_distribution import ContinuousDistribution
+from sdatools.distributions import ContinuousDistribution
 
 
 class ExponentialDistribution(ContinuousDistribution):

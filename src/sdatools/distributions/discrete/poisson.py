@@ -1,17 +1,19 @@
-from math import log, comb, exp, sqrt
+from math import log, exp, sqrt
 
-from sdatools.distributions.discrete.discrete_distribution import DiscreteDistribution
+from sdatools.distributions import DiscreteDistribution
 
 
 class PoissonDistribution(DiscreteDistribution):
-    """A class representing a Poisson distribution with rate parameter lambda.
-    
-    Note: a PoissonDistribution(lam) object relates to the random variable X ~ Poisson(lam)."""
+    """
+    A class representing a Poisson distribution with rate parameter lambda
+    """
     
     def __init__(self, lam: float):
         if lam <= 0:
             raise ValueError("Rate parameter lambda must be positive.")
         self.lam = lam
+
+    # Special methods
 
     def __repr__(self) -> str:
         """String representation of the Poisson distribution."""
@@ -37,6 +39,31 @@ class PoissonDistribution(DiscreteDistribution):
         """Return a hash value for the Poisson distribution."""
         return hash(self.lam)
     
+    # Domain
+
+    def domain(self) -> list[float]:
+        # Find maximum integer that produces PMF above machine epsilon
+        k = 0
+        while self.pmf(k) > 1e-10:
+            k += 1
+        return list(range(0, k + 1))
+    
+    # Moments
+    
+    def mean(self) -> float:
+        return self.lam
+    
+    def variance(self) -> float:
+        return self.lam
+    
+    def skewness(self) -> float:
+        return 1 / sqrt(self.lam) if self.lam > 0 else float('inf')
+    
+    def kurtosis(self) -> float:
+        return 1 / self.lam if self.lam > 0 else float('inf')
+    
+    # Distribution functions
+
     def pmf(self, k: int) -> float:
         """Probability Mass Function for the Poisson distribution.
         
@@ -56,23 +83,4 @@ class PoissonDistribution(DiscreteDistribution):
         if k < 0 or not isinstance(k, int):
             raise ValueError("k must be a non-negative integer.")
         return sum(self.pmf(i) for i in range(0, k + 1))
-
-    def domain(self) -> list[float]:
-        # Find maximum integer that produces PMF above machine epsilon
-        k = 0
-        while self.pmf(k) > 1e-10:
-            k += 1
-        return list(range(0, k + 1))
-    
-    def mean(self) -> float:
-        return self.lam
-    
-    def variance(self) -> float:
-        return self.lam
-    
-    def skewness(self) -> float:
-        return 1 / sqrt(self.lam) if self.lam > 0 else float('inf')
-    
-    def kurtosis(self) -> float:
-        return 1 / self.lam if self.lam > 0 else float('inf')
-    
+ 

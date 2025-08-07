@@ -1,6 +1,6 @@
 from math import exp, log, sqrt, pi, atan
 
-from sdatools.distributions.continuous.continuous_distribution import ContinuousDistribution
+from sdatools.distributions import ContinuousDistribution
 
 # TODO: Check correctness of moments and properties of Johnson SU distribution
 # Reference Wikipedia: https://en.wikipedia.org/wiki/Johnson%27s_SU-distribution

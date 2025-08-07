@@ -3,7 +3,7 @@ import numpy as np
 from sdatools.core.utils import vectorise_input
 
 
-@vectorise_input
+# @vectorise_input
 def erf(x: float) -> float:
     """
     Calculate the error function using a numerical approximation
@@ -30,7 +30,7 @@ def erf(x: float) -> float:
     return 1 - (a1 * t + a2 * t**2 + a3 * t**3 + a4 * t**4 + a5 * t**5) * np.exp(-x**2)
 
 
-@vectorise_input
+# @vectorise_input
 def phi(x: float) -> float:
     """
     Calculate the standard normal PDF (phi function)
@@ -38,7 +38,7 @@ def phi(x: float) -> float:
     return (1.0 / (np.sqrt(2.0 * np.pi))) * np.exp(-0.5 * x ** 2)
 
 
-@vectorise_input
+# @vectorise_input
 def Phi(x: float) -> float:
     """
     Calculate the standard normal CDF (Phi function)

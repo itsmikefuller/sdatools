@@ -1,11 +1,13 @@
 from abc import abstractmethod
 from random import choices
 
-from sdatools.distributions.base_distribution import Distribution
+from sdatools.distributions import Distribution
 
 
 class DiscreteDistribution(Distribution):
-    '''A base class for discrete probability distributions.'''
+    """
+    A base class for discrete probability distributions
+    """
 
     # Distribution functions
     

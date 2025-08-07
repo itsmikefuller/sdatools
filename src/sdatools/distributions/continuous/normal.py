@@ -4,8 +4,7 @@ from scipy.stats import norm
 
 from sdatools.core.functions import phi, Phi
 from sdatools.core.utils import vectorise_input, validate_probability
-from sdatools.core.types import NumericLike
-from sdatools.distributions.continuous.continuous_distribution import ContinuousDistribution
+from sdatools.distributions import ContinuousDistribution
 
 
 class NormalDistribution(ContinuousDistribution):
