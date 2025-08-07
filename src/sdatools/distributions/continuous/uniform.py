@@ -55,12 +55,14 @@ class UniformDistribution(ContinuousDistribution):
 
     # Distribution functions
 
+    # @vectorise_input
     def pdf(self, x: float) -> float:
         if self.a <= x <= self.b:
             return 1 / (self.b - self.a)
         else:
             return 0.0
-        
+
+    # @vectorise_input    
     def cdf(self, x: float) -> float:
         if x < self.a:
             return 0.0
@@ -68,7 +70,8 @@ class UniformDistribution(ContinuousDistribution):
             return 1.0
         else:
             return (x - self.a) / (self.b - self.a)
-        
+
+    # @vectorise_input    
     def inverse_cdf(self, p: float) -> float:
         if not (0 <= p <= 1):
             raise ValueError("Probability p must be in the range [0, 1].")

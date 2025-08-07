@@ -1,8 +1,10 @@
-from math import exp, sqrt, pi
+from math import sqrt
 import numpy as np
 from scipy.stats import norm
 
-from sdatools.core.functions.erf import erf
+from sdatools.core.functions import phi, Phi
+from sdatools.core.utils import vectorise_input, validate_probability
+from sdatools.core.types import NumericLike
 from sdatools.distributions.continuous.continuous_distribution import ContinuousDistribution
 
 
@@ -115,16 +117,17 @@ class NormalDistribution(ContinuousDistribution):
     
     # Distribution functions
 
+    # @vectorise_input
     def pdf(self, x: float) -> float:
-        return (1.0 / (self.sigma * sqrt(2.0 * pi))) * exp(-((x - self.mu) ** 2) / (2.0 * self.sigma ** 2))
+        return phi((x - self.mu) / self.sigma) / self.sigma
     
+    # @vectorise_input
     def cdf(self, x: float) -> float:
-        # TODO: Implement using quadrature 
-        return 0.5 * (1 + erf(x / sqrt(2)))
+        return Phi((x - self.mu) / self.sigma)
     
+    # @vectorise_input
     def inverse_cdf(self, p: float) -> float:
-        if not (0 <= p <= 1):
-            raise ValueError("Probability p must be in the range [0, 1].")
+        validate_probability(p)
         # TODO: Implement without using scipy for educational purposes
         return float(norm.ppf(p, loc=self.mu, scale=self.sigma))
     

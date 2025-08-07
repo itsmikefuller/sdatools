@@ -2,7 +2,8 @@ from math import exp, sqrt, pi
 import numpy as np
 from scipy.stats import skewnorm
 
-from sdatools.core.functions.erf import erf
+from sdatools.core.functions import erf, phi, Phi
+from sdatools.core.utils import vectorise_input, validate_probability
 from sdatools.distributions.continuous.continuous_distribution import ContinuousDistribution
 
 
@@ -12,9 +13,9 @@ class SkewNormalDistribution(ContinuousDistribution):
     """
     
     def __init__(self, xi: float = 0.0, omega: float = 1.0, alpha: float = 0.0):  
-        self.xi = xi
         if omega <= 0:
             raise ValueError("Scale parameter omega must be positive.")
+        self.xi = xi
         self.omega = omega
         self.alpha = alpha
         self._delta = alpha / sqrt(1 + alpha ** 2)
@@ -61,20 +62,19 @@ class SkewNormalDistribution(ContinuousDistribution):
     
     # Distribution functions
 
+    # @vectorise_input
     def pdf(self, x: float) -> float:
-        # TODO: Implement Normal PDF (phi(x)) and CDF (Phi(x)) functions in core, use them in NormalDistribution and here
         z = (x - self.xi) / self.omega
-        phi = (1 / sqrt(2 * pi)) * exp(-0.5 * z ** 2)
-        Phi = 0.5 * (1 + erf(self.alpha * z / sqrt(2)))
-        return 2 * phi * Phi / self.omega
+        return 2 / self.omega * phi(z) * Phi(self.alpha * z)
     
+    # @vectorise_input
     def cdf(self, x: float) -> float:
         # TODO: Implement without scipy
         return float(skewnorm.cdf(x, self.alpha, loc=self.xi, scale=self.omega))
     
+    # @vectorise_input
     def inverse_cdf(self, p: float) -> float:
-        if not (0 <= p <= 1):
-            raise ValueError("Probability p must be in the range [0, 1].")
+        validate_probability(p)
         # TODO: Implement SkewNormal inverse CDF
         raise NotImplementedError("Inverse CDF for SkewNormalDistribution is not implemented yet.")
     

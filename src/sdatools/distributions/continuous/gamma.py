@@ -2,7 +2,8 @@ from math import exp, sqrt, pi, gamma
 import numpy as np
 from scipy.special import gammainc
 
-from sdatools.core.functions.erf import erf
+from sdatools.core.functions import erf
+from sdatools.core.utils import vectorise_input, validate_probability
 from sdatools.distributions.continuous.continuous_distribution import ContinuousDistribution
 
 
@@ -115,16 +116,20 @@ class GammaDistribution(ContinuousDistribution):
     
     # Distribution functions
 
+    # @vectorise_input
     def pdf(self, x: float) -> float:
         if x < 0:
             return 0.0
         return (1.0 / (gamma(self.alpha) * self.beta ** self.alpha)) * (x ** (self.alpha - 1.0)) * exp(-(x / self.beta))
     
+    # @vectorise_input
     def cdf(self, x: float) -> float:
         # TODO: Implement without SciPy 
         return gammainc(self.alpha, x / self.beta)
     
+    # @vectorise_input
     def inverse_cdf(self, p: float) -> float:
+        validate_probability(p)
         # TODO: Implement the inverse CDF for the Gamma distribution
         raise NotImplementedError("Inverse CDF for Gamma distribution is not implemented yet.")
     

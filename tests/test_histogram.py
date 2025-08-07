@@ -10,7 +10,7 @@ def test_histogram_plot_basic():
     
     data = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4]
     histogram = Histogram(data)
-    histogram.plot()
+    histogram.plot_data()
     
     # Check that the plot looks sensible
     assert True
@@ -26,7 +26,7 @@ def test_histogram_plot_normal():
 
     # Plot histogram
     histogram = Histogram(data)
-    histogram.plot()
+    histogram.plot_data()
 
     # Overlay Normal PDF
     x_values = np.linspace(min(data), max(data), 100)
@@ -52,7 +52,7 @@ def test_histogram_plot_normal2():
     
     # Plot histogram
     histogram = Histogram(data)
-    histogram.plot()
+    histogram.plot_data()
 
     # Overlay Normal PDF
     x_values = np.linspace(min(data), max(data), 100)

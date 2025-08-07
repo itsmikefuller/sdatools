@@ -2,7 +2,8 @@ from math import exp, sqrt, pi
 import numpy as np
 from scipy.stats import lognorm
 
-from sdatools.core.functions.erf import erf
+from sdatools.core.functions import Phi
+from sdatools.core.utils import vectorise_input, validate_probability
 from sdatools.distributions.continuous.continuous_distribution import ContinuousDistribution
 
 
@@ -87,20 +88,21 @@ class LognormalDistribution(ContinuousDistribution):
     
     # Distribution functions
 
+    # @vectorise_input
     def pdf(self, x: float) -> float:
         if x <= 0:
             return 0.0
         return (1.0 / (x * self.sigma * sqrt(2.0 * pi))) * exp(-((np.log(x) - self.mu) ** 2) / (2.0 * self.sigma ** 2))
     
+    # @vectorise_input
     def cdf(self, x: float) -> float:
-        # TODO: Implement using Normal CDF
         if x <= 0:
             return 0.0
-        return 0.5 * (1 + erf((np.log(x) - self.mu) / (self.sigma * sqrt(2.0))))
+        return Phi((np.log(x) - self.mu) / self.sigma)
     
+    # @vectorise_input
     def inverse_cdf(self, p: float) -> float:
-        if not (0 <= p <= 1):
-            raise ValueError("Probability p must be in the range [0, 1].")
+        validate_probability(p)
         # TODO: Implement without using scipy for educational purposes
         return float(lognorm.ppf(p, loc=self.mu, scale=self.sigma))
     

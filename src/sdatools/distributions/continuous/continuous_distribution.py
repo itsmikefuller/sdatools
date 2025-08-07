@@ -1,5 +1,6 @@
 from abc import abstractmethod
 
+from sdatools.core.types import NumericLike, SeriesLike
 from sdatools.distributions.base_distribution import Distribution
 
 
@@ -10,12 +11,16 @@ class ContinuousDistribution(Distribution):
     
     @abstractmethod
     def pdf(self, x: float) -> float:
-        """Probability Density Function"""
+        """
+        Probability Density Function
+        """
         pass
 
     @abstractmethod
     def cdf(self, x: float) -> float:
-        """Cumulative Distribution Function"""
+        """
+        Cumulative Distribution Function
+        """
         pass
 
     # Sampling

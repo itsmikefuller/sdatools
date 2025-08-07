@@ -9,9 +9,9 @@
 
 **Author:** Mike Fuller
 
-**Last Updated:** 5th August 2025
+**Last Updated:** 7th August 2025
 
-This repository contains the source code for `sdatools`, a **work-in-progress** Python package I am developing to kill two birds with one stone: build my very first Python package whilst refreshing my knowledge of various statistics and data analysis techniques. I am taking a bottom-up approach as much as possible: whilst the package occasionally leverages well-known scientific packages like `numpy`, `pandas`, and `scikit-learn`, I aim to build most modules from scratch.
+This repository contains the source code for `sdatools`, a **work-in-progress** Python package I am developing to kill two birds with one stone: build my very first Python package whilst refreshing my knowledge of various statistics and data analysis techniques. I am taking a bottom-up approach as much as possible: whilst the package occasionally leverages well-known scientific packages like `numpy`, `pandas`, `scipy` and `matplotlib`, I aim to build most modules from scratch.
 
 I am regularly producing unit tests in the [`tests`](https://github.com/itsmikefuller/sdatools/tree/main/tests) directory to check that the package's components are behaving as expected. 
 
@@ -19,29 +19,23 @@ I am regularly producing unit tests in the [`tests`](https://github.com/itsmikef
 
 - [Key Features](#key-features)
 - [Case Studies](#case-studies)
-- [Source Code Layout](#source-code-layout)
 - [Ongoing Development](#ongoing-development)
 
 ## Key Features
 
-### `sdatools.core`
+### [`sdatools.core`](https://github.com/itsmikefuller/sdatools/tree/main/src/sdatools/core)
 
-Contains abstract base classes for functions, symbolic functions, and numeric functions. I leverage the Python package [`sympy`](https://www.sympy.org/en/index.html) to implement symbolic functions and computational algebra in `symbolic_function.py`. 
+Contains fundamental utilities and mathematical functions used throughout the `sdatools` package.
 
-The `functions` sub-module will contain Python files for non-standard functions that are desirable to have throughout `sdatools`. As of version 0.1.0, `erf.py` has been implemented, which contains a numerical approximation of the error function `erf(x)` (for use in the calculation of the CDF for the Normal distribution).
+The `functions` sub-module implements Normal distribution functions $\phi(x)$, $\Phi(x)$ and the error function `erf(x)`. 
 
-The vision is to allow functions in `sdatools` to be treated as symbolic for as long as possible, until defaulting to a numeric function, so that various computations can be made quicker by using an exact solution.
+The `utils` sub-module presents a decorator, `vectorise_input`, which allows scalar functions to be extended to array-like objects and computed element-wise. Such array-like objects are defined as `NumericLike` in the `types` sub-module. 
 
 ### [`sdatools.data_visualisation`](https://github.com/itsmikefuller/sdatools/tree/main/src/sdatools/data_visualisation)
 
-Will contain a selection of data visualisation classes for eventual use in a model validation dashboard, for example. Q-Q plots have been partially implemented. Further visualisations to be implemented include:
-- Biplots
-- Box plots
-- Dendrograms
-- Histograms
-- Pairs plots
-- P-P plots
-- Scree plots
+Contains a suite of data visualisation classes that build on classic statistical visualisations from `matplotlib.pyplot`. For example, the `Histogram` class implements the method `overlay_pdf()`, allowing the user to overlay a PDF of any given distribution class from `sdatools.distributions`.
+
+Q-Q plots and histograms are currently supported.
 
 ### [`sdatools.distributions`](https://github.com/itsmikefuller/sdatools/tree/main/src/sdatools/distributions)
 
@@ -84,42 +78,6 @@ For this demonstration, we will use the S&P 500 TRI, obtained from Yahoo Finance
   <source media="(prefers-color-scheme: dark)" srcset="images/total_return_index.png">
   <img alt="Calibrating a Total Return Index model" src="images/total_return_index.png" width=50%>
 </picture>
-
-## Source Code Layout
-
-The `sdatools` source code has the following structure:
-
-```bash
-└───src
-    └───sdatools
-        ├───core
-        │   └───functions
-        ├───data_visualisation
-        ├───distributions
-        │   ├───continuous
-        │   └───discrete
-        ├───numerical_methods
-        │   ├───interpolation
-        │   ├───matrix_factorisation
-        │   ├───optimisation
-        │   ├───quadrature
-        │   └───root_finding
-        ├───parameter_estimation
-        ├───supervised_learning
-        │   ├───decision_tree
-        │   ├───k_nearest_neighbours
-        │   ├───linear_regression
-        │   ├───logistic_regression
-        │   ├───neural_network
-        │   └───support_vector_machine
-        ├───unsupervised_learning
-        │   ├───clustering
-        │   ├───dimensionality_reduction
-        │   └───neural_network
-        └───validation
-            ├───cross_validation
-            └───goodness_of_fit
-```
 
 ## Ongoing Development
 

@@ -55,11 +55,13 @@ class ExponentialDistribution(ContinuousDistribution):
     
     # Distribution functions
 
+    # @vectorise_input
     def pdf(self, x: float) -> float:
         if x < 0:
             return 0.0
         return self.lam * exp(-self.lam * x)
     
+    # @vectorise_input
     def cdf(self, x: float) -> float:
         if x < 0:
             return 0.0
