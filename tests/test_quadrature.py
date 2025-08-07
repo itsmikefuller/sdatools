@@ -6,10 +6,11 @@ from sdatools.numerical_methods.quadrature import (
     SimpsonRule,
     Simpson38Rule,
     BooleRule,
+    CompositeRule,
     QuadratureRule
 )
 
-# Tests
+# Exact quadrature tests
 
 def test_trapezium_rule_exact_on_linear_functions():
     """
@@ -41,6 +42,42 @@ def test_boole_rule_exact_on_quintic_functions():
      """
      boole_rule = BooleRule()
      check_quintic_functions(boole_rule)
+
+    
+# Exact composite quadrature tests
+
+def test_composite_trapezium_rule_exact_on_linear_functions():
+    """
+    Test that the composite trapezium rule is exact for a selection of linear functions and number of subintervals
+    """
+    trapezium_rule = TrapeziumRule()
+    for num_subintervals in [1, 4, 8, 11]:
+         composite_rule = CompositeRule(rule=trapezium_rule, num_subintervals=num_subintervals)
+         check_linear_functions(composite_rule)
+
+
+def test_composite_simpson_rule_exact_on_linear_functions():
+    """
+    Test that the composite Simpson rule is exact for a selection of linear functions and number of subintervals
+    """
+    simpson_rule = SimpsonRule()
+    check_composite_rules(rule=simpson_rule, checking_function=check_linear_functions)
+
+
+def test_composite_simpson_38_rule_exact_on_linear_functions():
+    """
+    Test that the composite Simpson 3/8 rule is exact for a selection of cubic functions and number of subintervals
+    """
+    simpson_38_rule = Simpson38Rule()
+    check_composite_rules(rule=simpson_38_rule, checking_function=check_cubic_functions)
+
+
+def test_composite_boole_rule_exact_on_linear_functions():
+    """
+    Test that the composite Boole rule is exact for a selection of quintic functions and number of subintervals
+    """
+    boole_rule = BooleRule()
+    check_composite_rules(rule=boole_rule, checking_function=check_quintic_functions)
 
 
 # Helper functions
@@ -113,4 +150,13 @@ def check_quintic_functions(rule: QuadratureRule):
                                     exact_integral = exact_integral_quintic(a, b, c, d, e, f, min, max)
 
                                     quadrature_integral = rule.integrate(quintic_func, min, max)
-                                    assert isclose(quadrature_integral, exact_integral)
+                                    assert isclose(quadrature_integral, exact_integral, rel_tol=1e-12, abs_tol=1e-14)
+
+
+def check_composite_rules(rule: QuadratureRule, checking_function: Callable):
+    """
+    Check that the input qudrature rule is exact as a composite rule for a selection of subintervals
+    """
+    for num_subintervals in [1, 4, 8, 11]:
+        composite_rule = CompositeRule(rule=rule, num_subintervals=num_subintervals)
+        checking_function(composite_rule)
