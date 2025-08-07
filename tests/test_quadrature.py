@@ -1,3 +1,4 @@
+from math import isclose
 from typing import Callable
 
 from sdatools.numerical_methods.quadrature import (
@@ -5,89 +6,111 @@ from sdatools.numerical_methods.quadrature import (
     SimpsonRule,
     Simpson38Rule,
     BooleRule,
-    CompositeRule
+    QuadratureRule
 )
 
+# Tests
 
-def test_quadrature_rules():
-    """Test various quadrature rules for numerical integration."""
-    # Initialise quadrature rules
+def test_trapezium_rule_exact_on_linear_functions():
+    """
+    Test that the trapezium rule is exact for a selection of linear functions
+    """
     trapezium_rule = TrapeziumRule()
+    check_linear_functions(trapezium_rule)
+
+
+def test_simpson_rule_exact_on_cubic_functions():
+    """
+    Test that the Simpson rule is exact for a selection of cubic functions
+    """
     simpson_rule = SimpsonRule()
-    simpson38_rule = Simpson38Rule()
-    boole_rule = BooleRule()
+    check_cubic_functions(simpson_rule)
 
-    # Example function to integrate
-    f: Callable = lambda x: x**4 + 2*x + 1
-    print("Function to integrate: f(x) = x^4 + 2x + 1")
 
-    # Define integration limits
-    a = 0.0
-    b = 1.0
-    print(f"Integration limits: a = {a}, b = {b}")
+def test_simpson_38_rule_exact_on_cubic_functions():
+    """
+    Test that the Simpson 3/8 rule is exact for a selection of cubic functions
+    """
+    simpson_38_rule = Simpson38Rule()
+    check_cubic_functions(simpson_38_rule)
 
-    # Calculate the exact integral for comparison
-    exact_integral = (b**5 / 5 + b**2 + b) - (a**5 / 5 + a**2 + a)
-    print(f"Exact Integral = {exact_integral}")
-    print("")
 
-    '''Classic quadrature rules'''
+def test_boole_rule_exact_on_quintic_functions():
+     """
+     Test that the Boole rule is exact for a selection of quintic functions
+     """
+     boole_rule = BooleRule()
+     check_quintic_functions(boole_rule)
 
-    # Perform integration using quadrature rules
-    integral_trapezium = trapezium_rule.integrate(f, a, b)
-    integral_simpson = simpson_rule.integrate(f, a, b)
-    integral_simpson38 = simpson38_rule.integrate(f, a, b)
-    integral_boole = boole_rule.integrate(f, a, b)
 
-    # Print results
-    print(f"Trapezium Rule = {integral_trapezium}")
-    print(f"Simpson Rule = {integral_simpson}")
-    print(f"Simpson 3/8 Rule = {integral_simpson38}")
-    print(f"Boole Rule = {integral_boole}")
-    print("")
+# Helper functions
 
-    # Assert results are close to the exact integral
-    assert abs(integral_trapezium - exact_integral) < 1e-5, "Trapezium Rule failed"
-    assert abs(integral_simpson - exact_integral) < 1e-5, "Simpson Rule failed"
-    assert abs(integral_simpson38 - exact_integral) < 1e-5, "Simpson 3/8 Rule failed"
-    assert abs(integral_boole - exact_integral) < 1e-5, "Boole Rule failed"
-
-    # Print error calculations
-    print(f"Error in Trapezium Rule: {abs(integral_trapezium - exact_integral)}")
-    print(f"Error in Simpson Rule: {abs(integral_simpson - exact_integral)}")
-    print(f"Error in Simpson 3/8 Rule: {abs(integral_simpson38 - exact_integral)}")
-    print(f"Error in Boole Rule: {abs(integral_boole - exact_integral)}")
-    print("")
-
-    '''Composite quadrature rules'''
+def check_linear_functions(rule: QuadratureRule):
+    """
+    Check that the input quadrature rule is exact for a selection of linear functions
+    """
+    def exact_integral_linear(a: float, b: float, min: float, max: float) -> float:
+        F: Callable = lambda x: (a / 2) * x ** 2 + b * x
+        return F(max) - F(min)
     
-    # Create composite quadrature instances over 10 subintervals
-    composite_trapezium = CompositeRule(trapezium_rule, num_subintervals=10)
-    composite_simpson = CompositeRule(simpson_rule, num_subintervals=10)
-    composite_simpson38 = CompositeRule(simpson38_rule, num_subintervals=10)
-    composite_boole = CompositeRule(boole_rule, num_subintervals=10)
-    
-    # Perform integration using composite rules
-    integral_trapezium = composite_trapezium.integrate(f, a, b)
-    integral_simpson = composite_simpson.integrate(f, a, b)
-    integral_simpson38 = composite_simpson38.integrate(f, a, b)
-    integral_boole = composite_boole.integrate(f, a, b)
+    # Loop through gradients, y-intercepts
+    for a in [-7, 0, 2.5, 6]:
+        for b in [-4, 0, 1.5]:
+            linear_func: Callable = lambda x, a=a, b=b: a*x + b
 
-    # Print results
-    print(f"Composite Trapezium Rule = {integral_trapezium}")
-    print(f"Composite Simpson Rule = {integral_simpson}")
-    print(f"Composite Simpson 3/8 Rule = {integral_simpson38}")
-    print(f"Composite Boole Rule = {integral_boole}")   
-    print("")
+            # Loop through integral limits
+            for (min, max) in [(0, 2), (2.5, 4), (-4, 1.5)]:
+                    exact_integral = exact_integral_linear(a, b, min, max)
 
-    # Assert results are close to the exact integral
-    assert abs(integral_trapezium - exact_integral) < 1e-5, "Composite Trapezium Rule failed"
-    assert abs(integral_simpson - exact_integral) < 1e-5, "Composite Simpson Rule failed"
-    assert abs(integral_simpson38 - exact_integral) < 1e-5, "Composite Simpson 3/8 Rule failed"
-    assert abs(integral_boole - exact_integral) < 1e-5, "Composite Boole Rule failed"
+                    quadrature_integral = rule.integrate(linear_func, min, max)
+                    assert isclose(quadrature_integral, exact_integral)
 
-    # Print error calculations
-    print(f"Error in Composite Trapezium Rule: {abs(integral_trapezium - exact_integral)}")
-    print(f"Error in Composite Simpson Rule: {abs(integral_simpson - exact_integral)}")
-    print(f"Error in Composite Simpson 3/8 Rule: {abs(integral_simpson38 - exact_integral)}")
-    print(f"Error in Composite Boole Rule: {abs(integral_boole - exact_integral)}")
+
+def check_cubic_functions(rule: QuadratureRule):
+    """
+    Check that the input quadrature rule is exact for a selection of cubic functions
+    """
+    # Exact integral function
+    def exact_integral_cubic(a: float, b: float, c: float, d: float, min: float, max: float) -> float:
+        F: Callable = lambda x: (a / 4) * x ** 4 + (b / 3) * x ** 3 + (c / 2) * x ** 2 + d * x
+        return F(max) - F(min)
+
+    # Loop through coefficients
+    for a in [-10, 0, 1.5, 3]:
+        for b in [-5, 0, 2.5]:
+            for c in [-1, 0, 4.5, 7]:
+                for d in [-5, 0, 1.5]:
+                    cubic_func: Callable = lambda x, a=a, b=b, c=c, d=d: a * x ** 3 + b * x ** 2 + c * x + d
+
+                    # Loop through integral limits
+                    for (min, max) in [(0, 1), (1.5, 5), (-3, 2.5)]:
+                            exact_integral = exact_integral_cubic(a, b, c, d, min, max)
+
+                            quadrature_integral = rule.integrate(cubic_func, min, max)
+                            assert isclose(quadrature_integral, exact_integral)
+
+
+def check_quintic_functions(rule: QuadratureRule):
+    """
+    Check that the input quadrature rule is exact for a selection of quintic functions
+    """
+    # Exact integral function
+    def exact_integral_quintic(a: float, b: float, c: float, d: float, e: float, f: float, min: float, max: float) -> float:
+        F: Callable = lambda x: (a / 6) * x ** 6 + (b / 5) * x ** 5 + (c / 4) * x ** 4 + (d / 3) * x ** 3 + (e / 2) * x ** 2 + f * x
+        return F(max) - F(min)
+
+    # Loop through coefficients
+    for a in [-10, 0, 1.5, 3]:
+        for b in [-5, 0, 2.5]:
+            for c in [-1, 0, 4.5, 7]:
+                for d in [-5, 0, 1.5]:
+                    for e in [-6, 0, 1.5, 8]:
+                         for f in [-2.5, 0, 1, 5.5]:
+                            quintic_func: Callable = lambda x, a=a, b=b, c=c, d=d: a * x ** 5 + b * x ** 4 + c * x ** 3 + d * x ** 2 + e * x + f
+
+                            # Loop through integral limits
+                            for (min, max) in [(0, 1), (1.5, 5), (-3, 2.5)]:
+                                    exact_integral = exact_integral_quintic(a, b, c, d, e, f, min, max)
+
+                                    quadrature_integral = rule.integrate(quintic_func, min, max)
+                                    assert isclose(quadrature_integral, exact_integral)
