@@ -1,4 +1,4 @@
-from sdatools.distributions.continuous.normal import NormalDistribution
+from sdatools.distributions import NormalDistribution
 
 
 def test_normal_distribution_special_methods():

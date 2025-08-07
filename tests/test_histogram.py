@@ -1,8 +1,7 @@
-from sdatools.data_visualisation.histogram import Histogram
+from sdatools.data_visualisation import Histogram
+from sdatools.distributions import NormalDistribution
 
 import numpy as np
-import matplotlib.pyplot as plt
-import scipy.stats as stats
 import datetime
 
 
@@ -20,18 +19,18 @@ def test_histogram_plot_normal():
     
     # Generate random data from a normal distribution
     mean = 50
-    std_dev = 5
+    stddev = 5
     size = 150
-    data = np.random.normal(loc=mean, scale=std_dev, size=size).tolist()
+    data = np.random.normal(loc=mean, scale=stddev, size=size).tolist()
 
     # Plot histogram
     histogram = Histogram(data)
     histogram.plot_data()
 
     # Overlay Normal PDF
-    x_values = np.linspace(min(data), max(data), 100)
-    pdf = stats.norm.pdf(x_values, mean, std_dev)
-    histogram.overlay_pdf(x_values, pdf)
+    histogram.overlay_pdf(distribution=NormalDistribution(
+        mu=mean, sigma=stddev
+    ))
 
     # Save image of histogram / PDF in tests directory
     # Check image manually for correctness!
@@ -55,9 +54,10 @@ def test_histogram_plot_normal2():
     histogram.plot_data()
 
     # Overlay Normal PDF
-    x_values = np.linspace(min(data), max(data), 100)
-    pdf = stats.norm.pdf(x_values, mean, stddev)
-    histogram.overlay_pdf(x_values, pdf)
+    histogram.overlay_pdf(distribution=NormalDistribution(
+        mu=mean,
+        sigma=stddev
+    ))
 
     # Save image of histogram / PDF in tests directory
     # Check image manually for correctness!
@@ -65,5 +65,3 @@ def test_histogram_plot_normal2():
     timestamp = now.strftime("%Y_%m_%d_%H_%M_%S")
     histogram.save_fig(f'tests/images/{timestamp}_test_histogram_plot_normal2.png')
     assert True
-
-test_histogram_plot_normal2()

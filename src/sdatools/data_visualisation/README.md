@@ -12,7 +12,7 @@ Currently supported visualisations are:
 ### Create a histogram from Normally distributed sample data
 
 ```python
-from sdatools.data_visualisation.histogram import Histogram
+from sdatools.data_visualisation import Histogram
 import numpy as np
 import scipy.stats as stats
 
@@ -37,15 +37,15 @@ histogram.save_fig("output/file/path/here.png")
 The following output figure is produced:
 
 <picture align="center">
-  <source media="(prefers-color-scheme: dark)" srcset="fig1.png">
-  <img alt="Histogram of data sampled from a Normal distribution, with Normal PDF overlay" src="fig1.png">
+  <source media="(prefers-color-scheme: dark)" srcset="images/fig1.png">
+  <img alt="Histogram of data sampled from a Normal distribution, with Normal PDF overlay" src="images/fig1.png">
 </picture>
 
 ### Create a Q-Q plot from Normally distributed sample data
 
 ```python
-from sdatools.distributions.continuous.normal import NormalDistribution
-from sdatools.data_visualisation.qq_plot import QQPlot
+from sdatools.distributions import NormalDistribution
+from sdatools.data_visualisation import QQPlot
 import numpy as np
 
 # Create a normal distribution
@@ -70,6 +70,6 @@ qq_plot.plot(theoretical_quantiles, sample_quantiles, show_plot=True)
 The following output figure is produced:
 
 <picture align="center">
-  <source media="(prefers-color-scheme: dark)" srcset="fig2.png">
-  <img alt="Q-Q plot of data sampled from a Normal distribution" src="fig2.png">
+  <source media="(prefers-color-scheme: dark)" srcset="images/fig2.png">
+  <img alt="Q-Q plot of data sampled from a Normal distribution" src="images/fig2.png">
 </picture>

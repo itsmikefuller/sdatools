@@ -1,6 +1,6 @@
 import numpy as np
-import pandas as pd
 
+from sdatools.core.types import SeriesLike
 from sdatools.distributions import (
     Distribution,
     NormalDistribution,
@@ -25,7 +25,7 @@ class MethodOfMoments:
     """
 
     def __init__(self, 
-                 data: list[float] | np.ndarray | pd.Series,
+                 data: SeriesLike,
                  order: int = 4):
         self.data: np.ndarray = np.asarray(data)
         self.calculate_sample_moments(order=order)

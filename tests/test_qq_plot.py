@@ -1,13 +1,15 @@
-from sdatools.data_visualisation.qq_plot import QQPlot
+from sdatools.data_visualisation import QQPlot
+from sdatools.distributions import UniformDistribution, NormalDistribution
 
+import numpy as np
 import datetime
 
 
 def test_qq_plot_uniform():
-    """Test the QQPlot class with a Uniform(0, 1) distribution."""
-    from sdatools.distributions.continuous.uniform import UniformDistribution
-    import numpy as np
-
+    """
+    Test the QQPlot class with a Uniform(0, 1) distribution
+    """
+    
     # Create a uniform distribution
     uniform_dist = UniformDistribution(0, 1)
 
@@ -28,9 +30,9 @@ def test_qq_plot_uniform():
 
 
 def test_qq_plot_normal():
-    """Test the QQPlot class with a standard Normal distribution."""
-    from sdatools.distributions.continuous.normal import NormalDistribution
-    import numpy as np
+    """
+    Test the QQPlot class with a standard Normal distribution
+    """
 
     # Create a normal distribution
     normal_dist = NormalDistribution(0, 1)
