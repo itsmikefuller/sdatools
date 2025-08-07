@@ -1,12 +1,11 @@
 from typing import Callable
 
-from sdatools.numerical_methods.quadrature.quadrature import (
+from sdatools.numerical_methods.quadrature import (
     TrapeziumRule,
     SimpsonRule,
     Simpson38Rule,
     BooleRule,
-    CompositeRule,
-    Quadrature
+    CompositeRule
 )
 
 
@@ -33,17 +32,12 @@ def test_quadrature_rules():
     print("")
 
     '''Classic quadrature rules'''
-    # Create quadrature instances
-    quadrature_trapezium = Quadrature(trapezium_rule)
-    quadrature_simpson = Quadrature(simpson_rule)
-    quadrature_simpson38 = Quadrature(simpson38_rule)
-    quadrature_boole = Quadrature(boole_rule)
 
     # Perform integration using quadrature rules
-    integral_trapezium = quadrature_trapezium.integrate(f, a, b)
-    integral_simpson = quadrature_simpson.integrate(f, a, b)
-    integral_simpson38 = quadrature_simpson38.integrate(f, a, b)
-    integral_boole = quadrature_boole.integrate(f, a, b)
+    integral_trapezium = trapezium_rule.integrate(f, a, b)
+    integral_simpson = simpson_rule.integrate(f, a, b)
+    integral_simpson38 = simpson38_rule.integrate(f, a, b)
+    integral_boole = boole_rule.integrate(f, a, b)
 
     # Print results
     print(f"Trapezium Rule = {integral_trapezium}")
@@ -66,6 +60,7 @@ def test_quadrature_rules():
     print("")
 
     '''Composite quadrature rules'''
+    
     # Create composite quadrature instances over 10 subintervals
     composite_trapezium = CompositeRule(trapezium_rule, num_subintervals=10)
     composite_simpson = CompositeRule(simpson_rule, num_subintervals=10)
