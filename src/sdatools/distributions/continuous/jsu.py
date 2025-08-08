@@ -4,21 +4,20 @@ from scipy.stats import norm
 
 from sdatools.core.functions import phi, Phi
 from sdatools.core.utils import vectorise_input, validate_probability
+from sdatools.core.types import SeriesLike
 from sdatools.distributions import ContinuousDistribution
 
 
 class JohnsonSUDistribution(ContinuousDistribution):
     """
-    A class representing the Johnson's SU distribution family
+    A class implementing the Johnson's SU distribution family, as specified in Wikipedia
+
+    https://en.wikipedia.org/wiki/Johnson%27s_SU-distribution
     """
     
-    def __init__(self, gamma: float = 1.0, delta: float = 2.0, xi: float = 1.0, lam: float = 1.0):  
-        if gamma <= 0:
-            raise ValueError(f"Parameter gamma must be positive.")
+    def __init__(self, gamma: float = 0.0, delta: float = 1.0, xi: float = 0.0, lam: float = 1.0):  
         if delta <= 0:
             raise ValueError(f"Parameter delta must be positive.")
-        if xi <= 0:
-            raise ValueError(f"Parameter xi must be positive.")
         if lam <= 0:
             raise ValueError(f"Parameter lam must be positive.")
         self._gamma = gamma
@@ -26,12 +25,14 @@ class JohnsonSUDistribution(ContinuousDistribution):
         self._xi = xi
         self._lam = lam
 
-        self._deltaminus2 = self._delta ** (-2)
+        # Helper parameters
+        self._dmin2 = self._delta ** (-2)
+        self._expdmin2 = float("inf") if self._dmin2 > 700 else exp(self._dmin2) # exp(709) ~ 1e308 is near float max
 
     # Special methods
 
     def __repr__(self) -> str:
-        return f"JohnsonSUDistribution(gamma={self._gamma}, delta={self._delta}, xi={self._xi}, lam={self._lam})"    
+        return f"JohnsonSUDistribution(gamma={self._gamma:.4g}, delta={self._delta:.4g}, xi={self._xi:.4g}, lam={self._lam:.4g})"    
 
     def __str__(self) -> str:
         return f"JSU({self._gamma}, {self._delta}, {self._xi}, {self._lam})"
@@ -67,31 +68,31 @@ class JohnsonSUDistribution(ContinuousDistribution):
     
     @property
     def mean(self) -> float:
-        trm1: float = self._lam * exp(self._deltaminus2 / 2)
+        trm1: float = self._lam * exp(self._dmin2 / 2)
         trm2: float = sinh(self._gamma / self._delta)
         return self._xi - trm1 * trm2
 
     @property
     def variance(self) -> float:
         trm1: float = self._lam ** 2 / 2
-        trm2: float = (exp(self._deltaminus2) - 1)
-        trm3: float = (exp(self._deltaminus2) * cosh(2 * self._gamma / self._delta) + 1)
+        trm2: float = (self._expdmin2 - 1)
+        trm3: float = (self._expdmin2 * cosh(2 * self._gamma / self._delta) + 1)
         return trm1 * trm2 * trm3
     
     @property
     def skewness(self) -> float:
-        num1: float = self._lam ** 3 * sqrt(exp(self._deltaminus2))
-        num2: float = (exp(self._deltaminus2) - 1) ** 2
-        num3: float = (exp(self._deltaminus2) * (exp(self._deltaminus2) + 2) * sinh(3 * self._gamma / self._delta) + 3 * sinh(self._gamma / self._delta))
+        num1: float = self._lam ** 3 * sqrt(self._expdmin2)
+        num2: float = (self._expdmin2 - 1) ** 2
+        num3: float = (self._expdmin2 * (self._expdmin2 + 2) * sinh(3 * self._gamma / self._delta) + 3 * sinh(self._gamma / self._delta))
         denom: float = 4 * self.variance ** 1.5
         return - num1 * num2 * num3 / denom
     
     @property
     def kurtosis(self) -> float:
-        k1: float = (exp(self._deltaminus2)) ** 2 * ((exp(self._deltaminus2)) ** 4 + 2 * (exp(self._deltaminus2)) ** 3 + 3 * (exp(self._deltaminus2)) ** 2 - 3) * cosh(4 * self._gamma / self._delta)
-        k2: float = 4 * (exp(self._deltaminus2)) ** 2 * (exp(self._deltaminus2) + 2) * cosh(3 * self._gamma / self._delta)
-        k3: float = 3 * (2 * exp(self._deltaminus2) + 1)
-        num: float = self._lam ** 4 * (exp(self._deltaminus2) - 1) ** 2 * (k1 + k2 + k3)
+        k1: float = (self._expdmin2) ** 2 * ((self._expdmin2) ** 4 + 2 * (self._expdmin2) ** 3 + 3 * (self._expdmin2) ** 2 - 3) * cosh(4 * self._gamma / self._delta)
+        k2: float = 4 * (self._expdmin2) ** 2 * (self._expdmin2 + 2) * cosh(3 * self._gamma / self._delta)
+        k3: float = 3 * (2 * self._expdmin2 + 1)
+        num: float = self._lam ** 4 * (self._expdmin2 - 1) ** 2 * (k1 + k2 + k3)
         denom: float = 8 * self.variance ** 2
         return num / denom
     
@@ -118,15 +119,9 @@ class JohnsonSUDistribution(ContinuousDistribution):
     
     # Sampling
     
-    # TODO: Implement sampling from a Johnson SU distribution
-    def sample(self, size: int = 1) -> list[float]:
-        """
-        Generate n samples (n = size) from the Johnson's SU distribution
-        """
-        # TODO: Implement manually using Box-Muller transform or similar method
-        if size <= 0:
+    def sample(self, size: int = 1) -> SeriesLike:
+        if not isinstance(size, int) or size <= 0:
             raise ValueError("Sample size must be a positive integer.")
-        if not isinstance(size, int):
-            raise ValueError("Sample size must be an integer.")
-        raise NotImplementedError("Sampling from Johnson SU distribution not yet implemented")
+        z: np.ndarray = np.random.normal(size=size)
+        return self._xi + self._lam * np.sinh((z - self._gamma) / self._delta)
     

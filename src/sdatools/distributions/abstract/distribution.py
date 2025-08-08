@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
-
 from math import sqrt
+
+from sdatools.core.types import SeriesLike
 
 
 class Distribution(ABC):
@@ -130,7 +131,7 @@ class Distribution(ABC):
 
     # TODO: Make sample() an enforced method and implement in all distributions
     # @abstractmethod
-    def sample(self, size: int = 1) -> list[float]:
+    def sample(self, size: int = 1) -> SeriesLike:
         """
         Return a list of n (n=size) samples from the distribution
         """
