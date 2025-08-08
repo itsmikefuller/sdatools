@@ -55,7 +55,7 @@ data: list[float] = [5.49, 3.59, 5.94, 8.57, 3.3, 3.3, 8.74, 6.3, 2.59, 5.63, 2.
 mom = MethodOfMoments(data)
 fitted_normal: NormalDistribution = mom.fit(NormalDistribution())
 
-# Check parameters - not expecting close fit due to small sample size
+# Check parameters
 print(f"Fitted distribution mean: {fitted_dist.mu}") # 3.6883000000000004
 print(f"Fitted distribution stddev: {fitted_dist.sigma}") # 2.71092716796302
 
@@ -72,6 +72,6 @@ histogram.save_fig("output/file/path/here.png")
 The following output figure is produced:
 
 <picture align="center">
-  <source media="(prefers-color-scheme: dark)" srcset="fig1.png">
-  <img alt="Histogram of Normally distributed data with Normal PDF overlay" src="fig1.png">
+  <source media="(prefers-color-scheme: dark)" srcset="images/fig1.png">
+  <img alt="Histogram of Normally distributed data with Normal PDF overlay" src="images/fig1.png">
 </picture>
