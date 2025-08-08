@@ -16,27 +16,12 @@ class PoissonDistribution(DiscreteDistribution):
     # Special methods
 
     def __repr__(self) -> str:
-        """String representation of the Poisson distribution."""
         return f"PoissonDistribution(lam={self.lam})"
     
     def __str__(self) -> str:
-        """String representation of the Poisson distribution."""
         return f"Poisson({self.lam})"
     
-    def __eq__(self, other: object) -> bool:
-        """Check equality of two Poisson distributions."""
-        if not isinstance(other, PoissonDistribution):
-            return NotImplemented
-        return self.lam == other.lam
-    
-    def __ne__(self, other: object) -> bool:
-        """Check inequality of two Poisson distributions."""
-        if not isinstance(other, PoissonDistribution):
-            return NotImplemented
-        return not self.__eq__(other)
-    
     def __hash__(self) -> int:
-        """Return a hash value for the Poisson distribution."""
         return hash(self.lam)
     
     # Domain

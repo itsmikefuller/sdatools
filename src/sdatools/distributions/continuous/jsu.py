@@ -35,16 +35,6 @@ class JohnsonSUDistribution(ContinuousDistribution):
 
     def __str__(self) -> str:
         return f"JSU({self.gamma}, {self.delta}, {self.xi}, {self.lam})"
-
-    def __eq__(self, other: object) -> bool:
-        if not isinstance(other, JohnsonSUDistribution):
-            return NotImplemented
-        return (self.gamma == other.gamma) and (self.delta == other.delta) and (self.xi == other.xi) and (self.lam == other.lam)
-
-    def __ne__(self, other: object) -> bool:
-        if not isinstance(other, JohnsonSUDistribution):
-            return NotImplemented
-        return not self.__eq__(other)
     
     def __hash__(self) -> int:
         return hash((self.gamma, self.delta, self.xi, self.lam))

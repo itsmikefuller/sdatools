@@ -27,16 +27,6 @@ class LogNormalDistribution(ContinuousDistribution):
 
     def __str__(self) -> str:
         return f"Lognormal({self.mu}, {self.sigma ** 2})"
-
-    def __eq__(self, other: object) -> bool:
-        if not isinstance(other, LogNormalDistribution):
-            return NotImplemented
-        return self.mu == other.mu and self.sigma == other.sigma    
-
-    def __ne__(self, other: object) -> bool:
-        if not isinstance(other, LogNormalDistribution):
-            return NotImplemented
-        return not self.__eq__(other)
     
     def __hash__(self) -> int:
         return hash((self.mu, self.sigma))

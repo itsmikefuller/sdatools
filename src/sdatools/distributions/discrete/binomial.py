@@ -23,16 +23,6 @@ class BinomialDistribution(DiscreteDistribution):
     
     def __str__(self) -> str:
         return f"Bin({self.n}, {self.p})"
-
-    def __eq__(self, other: object) -> bool:
-        if not isinstance(other, BinomialDistribution):
-            return NotImplemented
-        return self.n == other.n and self.p == other.p
-    
-    def __ne__(self, other: object) -> bool:
-        if not isinstance(other, BinomialDistribution):
-            return NotImplemented
-        return not self.__eq__(other)
     
     def __hash__(self) -> int:
         return hash((self.n, self.p))

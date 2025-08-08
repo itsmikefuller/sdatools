@@ -8,21 +8,52 @@ class Distribution(ABC):
     A base class for all probability distributions
     """
 
-    # TODO: Implement common special methods here, instead of in each distribution
+    # Special methods
 
-    # def __eq__(self, other: object) -> bool:
-    #     if not isinstance(other, Distribution):
-    #         return NotImplemented
-    #     return self.n == other.n and self.p == other.p
+    def __eq__(self, other: object) -> bool:
+        """
+        Check if two distributions are equal
+        
+        If two distributions are equal, all their parameters should be identical
+        """
+        if not isinstance(other, self.__class__):
+            return NotImplemented
+        return self.__dict__ == other.__dict__
     
-    # def __ne__(self, other: object) -> bool:
-    #     if not isinstance(other, Distribution):
-    #         return NotImplemented
-    #     return not self.__eq__(other)
+    def __ne__(self, other: object) -> bool:
+        """
+        Check if two distributions are not equal
+        """
+        eq_check = self.__eq__(other)
+        return NotImplemented if eq_check is NotImplemented else not eq_check
     
-    # def __hash__(self) -> int:
-    #     return hash((self.n, self.p))
+    @abstractmethod
+    def __hash__(self) -> int:
+        """
+        Hash representation of the distribution
+
+        Should include all parameters of the distribution
+        """
+        pass
     
+    @abstractmethod
+    def __repr__(self) -> str:
+        """
+        String representation for the distribution, in the form:
+
+        Distribution(param1=x1, param2=x2, ...)
+
+        Should include all parameters of the distribution
+        """
+        pass
+
+    def __str__(self) -> str:
+        """
+        Shortened string representation for the distribution
+
+        If not overridden to something more appropriate (e.g. Bin(n, p)), __repr__ is used
+        """
+        return self.__repr__()
     
     # Domain
     

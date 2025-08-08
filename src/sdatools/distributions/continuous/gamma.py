@@ -25,16 +25,6 @@ class GammaDistribution(ContinuousDistribution):
 
     def __str__(self) -> str:
         return f"Gamma({self.alpha}, {self.beta})"
-
-    def __eq__(self, other: object) -> bool:
-        if not isinstance(other, GammaDistribution):
-            return NotImplemented
-        return (self.alpha == other.alpha) and (self.beta == other.beta)   
-
-    def __ne__(self, other: object) -> bool:
-        if not isinstance(other, GammaDistribution):
-            return NotImplemented
-        return not self.__eq__(other)
     
     def __hash__(self) -> int:
         return hash((self.alpha, self.beta))

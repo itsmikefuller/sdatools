@@ -26,16 +26,6 @@ class SkewNormalDistribution(ContinuousDistribution):
 
     def __str__(self) -> str:
         return f"SN({self.xi}, {self.omega}, {self.alpha})"
-
-    def __eq__(self, other: object) -> bool:
-        if not isinstance(other, SkewNormalDistribution):
-            return NotImplemented
-        return (self.xi == other.xi) and (self.omega == other.omega) and (self.alpha == other.alpha)   
-
-    def __ne__(self, other: object) -> bool:
-        if not isinstance(other, SkewNormalDistribution):
-            return NotImplemented
-        return not self.__eq__(other)
     
     def __hash__(self) -> int:
         return hash((self.xi, self.omega, self.alpha))

@@ -21,16 +21,6 @@ class ExponentialDistribution(ContinuousDistribution):
     def __str__(self) -> str:
         return f"Exp({self.lam})"
     
-    def __eq__(self, other: object) -> bool:
-        if not isinstance(other, ExponentialDistribution):
-            return NotImplemented
-        return self.lam == other.lam
-    
-    def __ne__(self, other: object) -> bool:
-        if not isinstance(other, ExponentialDistribution):
-            return NotImplemented
-        return not self.__eq__(other)
-    
     def __hash__(self) -> int:
         return hash(self.lam)
     
