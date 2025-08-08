@@ -8,6 +8,7 @@ from .abstract.discrete_distribution import DiscreteDistribution
 
 from .continuous.exponential import ExponentialDistribution
 from .continuous.gamma import GammaDistribution
+from .continuous.jsu import JohnsonSUDistribution
 from .continuous.lognormal import LogNormalDistribution
 from .continuous.normal import NormalDistribution
 from .continuous.skewnormal import SkewNormalDistribution
@@ -25,6 +26,7 @@ __all__ = [
     'DiscreteDistribution',
     'ExponentialDistribution',
     'GammaDistribution',
+    'JohnsonSUDistribution',
     'LogNormalDistribution',
     'NormalDistribution',
     'SkewNormalDistribution',
