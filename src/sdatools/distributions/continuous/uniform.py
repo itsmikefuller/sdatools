@@ -10,35 +10,45 @@ class UniformDistribution(ContinuousDistribution):
     def __init__(self, a: float = 0.0, b: float = 1.0):
         if a >= b:
             raise ValueError("Lower bound 'a' must be less than upper bound 'b'.")
-        self.a = a
-        self.b = b
+        self._a = a
+        self._b = b
 
     # Special methods
 
     def __repr__(self) -> str:
-        return f"UniformDistribution(a={self.a}, b={self.b})"
+        return f"UniformDistribution(a={self._a}, b={self._b})"
     
     def __str__(self) -> str:
-        return f"U({self.a}, {self.b})"
+        return f"U({self._a}, {self._b})"
     
     def __hash__(self) -> int:
-        return hash((self.a, self.b))
+        return hash((self._a, self._b))
+    
+    # Distribution parameters
+
+    @property
+    def a(self) -> float:
+        return self._a
+    
+    @property
+    def b(self) -> float:
+        return self._b
     
     # Domain
 
     @property
     def domain(self) -> list[float]:
-        return [self.a, self.b]
+        return [self._a, self._b]
 
     # Moments
    
     @property
     def mean(self) -> float:
-        return (self.a + self.b) / 2
+        return (self._a + self._b) / 2
     
     @property
     def variance(self) -> float:
-        return (self.b - self.a) ** 2 / 12
+        return (self._b - self._a) ** 2 / 12
     
     @property
     def skewness(self) -> float:
@@ -52,25 +62,25 @@ class UniformDistribution(ContinuousDistribution):
 
     # @vectorise_input
     def pdf(self, x: float) -> float:
-        if self.a <= x <= self.b:
-            return 1 / (self.b - self.a)
+        if self._a <= x <= self._b:
+            return 1 / (self._b - self._a)
         else:
             return 0.0
 
     # @vectorise_input    
     def cdf(self, x: float) -> float:
-        if x < self.a:
+        if x < self._a:
             return 0.0
-        elif x > self.b:
+        elif x > self._b:
             return 1.0
         else:
-            return (x - self.a) / (self.b - self.a)
+            return (x - self._a) / (self._b - self._a)
 
     # @vectorise_input    
     def inverse_cdf(self, p: float) -> float:
         if not (0 <= p <= 1):
             raise ValueError("Probability p must be in the range [0, 1].")
-        return self.a + p * (self.b - self.a)
+        return self._a + p * (self._b - self._a)
 
     # Sampling
 
@@ -83,5 +93,5 @@ class UniformDistribution(ContinuousDistribution):
             raise ValueError("Sample size must be a positive integer.")
         if not isinstance(size, int):
             raise ValueError("Sample size must be an integer.")
-        return np.random.uniform(low=self.a, high=self.b, size=size).tolist()
+        return np.random.uniform(low=self._a, high=self._b, size=size).tolist()
     

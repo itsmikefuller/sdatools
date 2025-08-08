@@ -15,21 +15,21 @@ class NormalDistribution(ContinuousDistribution):
     """
     
     def __init__(self, mu: float = 0.0, sigma: float = 1.0):  
-        self.mu = mu
         if sigma <= 0:
             raise ValueError("Standard deviation must be positive.")
-        self.sigma = sigma
+        self._mu = mu
+        self._sigma = sigma
 
     # Special methods
 
     def __repr__(self) -> str:
-        return f"NormalDistribution(mu={self.mu}, sigma={self.sigma})"    
+        return f"NormalDistribution(mu={self._mu}, sigma={self._sigma})"    
 
     def __str__(self) -> str:
-        return f"N({self.mu}, {self.sigma ** 2})"
+        return f"N({self._mu}, {self._sigma ** 2})"
     
     def __hash__(self) -> int:
-        return hash((self.mu, self.sigma))
+        return hash((self._mu, self._sigma))
 
     def __add__(self, other: 'NormalDistribution') -> 'NormalDistribution':
         """
@@ -39,8 +39,8 @@ class NormalDistribution(ContinuousDistribution):
         """
         if not isinstance(other, NormalDistribution):
             raise TypeError("Can only add another NormalDistribution.")
-        new_mu = self.mu + other.mu
-        new_sigma = sqrt(self.sigma ** 2 + other.sigma ** 2)
+        new_mu = self._mu + other._mu
+        new_sigma = sqrt(self._sigma ** 2 + other._sigma ** 2)
         return NormalDistribution(new_mu, new_sigma)
     
     def __sub__(self, other: 'NormalDistribution') -> 'NormalDistribution':
@@ -51,8 +51,8 @@ class NormalDistribution(ContinuousDistribution):
         """
         if not isinstance(other, NormalDistribution):
             raise TypeError("Can only subtract another NormalDistribution.")
-        new_mu = self.mu - other.mu
-        new_sigma = sqrt(self.sigma ** 2 + other.sigma ** 2)
+        new_mu = self._mu - other._mu
+        new_sigma = sqrt(self._sigma ** 2 + other._sigma ** 2)
         return NormalDistribution(new_mu, new_sigma)
 
     def __mul__(self, scalar) -> 'NormalDistribution':
@@ -63,8 +63,8 @@ class NormalDistribution(ContinuousDistribution):
         """
         if not isinstance(scalar, (int, float)):
             raise TypeError("Can only multiply by a scalar (int or float).")
-        new_mu = scalar * self.mu
-        new_sigma = abs(scalar) * self.sigma
+        new_mu = scalar * self._mu
+        new_sigma = abs(scalar) * self._sigma
         return NormalDistribution(new_mu, new_sigma)
     
     def __rmul__(self, other):
@@ -81,9 +81,19 @@ class NormalDistribution(ContinuousDistribution):
         """
         if not isinstance(scalar, (int, float)) or scalar == 0:
             raise ValueError("Can only divide by a non-zero scalar (int or float).")
-        new_mu = self.mu / scalar
-        new_sigma = self.sigma / abs(scalar)
+        new_mu = self._mu / scalar
+        new_sigma = self._sigma / abs(scalar)
         return NormalDistribution(new_mu, new_sigma)
+    
+    # Distribution parameters
+
+    @property
+    def mu(self) -> float:
+        return self._mu
+    
+    @property
+    def sigma(self) -> float:
+        return self._sigma
     
     # Domain
 
@@ -95,11 +105,11 @@ class NormalDistribution(ContinuousDistribution):
     
     @property
     def mean(self) -> float:
-        return self.mu
+        return self._mu
 
     @property
     def variance(self) -> float:
-        return self.sigma ** 2
+        return self._sigma ** 2
     
     @property
     def skewness(self) -> float:
@@ -113,17 +123,17 @@ class NormalDistribution(ContinuousDistribution):
 
     # @vectorise_input
     def pdf(self, x: float) -> float:
-        return phi((x - self.mu) / self.sigma) / self.sigma
+        return phi((x - self._mu) / self._sigma) / self._sigma
     
     # @vectorise_input
     def cdf(self, x: float) -> float:
-        return Phi((x - self.mu) / self.sigma)
+        return Phi((x - self._mu) / self._sigma)
     
     # @vectorise_input
     def inverse_cdf(self, p: float) -> float:
         validate_probability(p)
         # TODO: Implement without using scipy for educational purposes
-        return float(norm.ppf(p, loc=self.mu, scale=self.sigma))
+        return float(norm.ppf(p, loc=self._mu, scale=self._sigma))
     
     # Sampling
     
@@ -136,5 +146,5 @@ class NormalDistribution(ContinuousDistribution):
             raise ValueError("Sample size must be a positive integer.")
         if not isinstance(size, int):
             raise ValueError("Sample size must be an integer.")
-        return np.random.normal(loc=self.mu, scale=self.sigma, size=size).tolist()
+        return np.random.normal(loc=self._mu, scale=self._sigma, size=size).tolist()
     

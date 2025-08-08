@@ -13,51 +13,61 @@ class BinomialDistribution(DiscreteDistribution):
             raise ValueError("Number of trials must be non-negative.")
         if not (0 <= p <= 1):
             raise ValueError("Probability of success must be between 0 and 1.")
-        self.n = n
-        self.p = p
+        self._n = n
+        self._p = p
 
     # Special methods
 
     def __repr__(self) -> str:
-        return f"BinomialDistribution(n={self.n}, p={self.p})"
+        return f"BinomialDistribution(n={self._n}, p={self._p})"
     
     def __str__(self) -> str:
-        return f"Bin({self.n}, {self.p})"
+        return f"Bin({self._n}, {self._p})"
     
     def __hash__(self) -> int:
-        return hash((self.n, self.p))
+        return hash((self._n, self._p))
+    
+    # Distribution parameters
+
+    @property
+    def n(self) -> float:
+        return self._n
+    
+    @property
+    def p(self) -> float:
+        return self._p
     
     # Domain
 
     @property
     def domain(self) -> list[int]:
-        return list(range(0, self.n + 1))
+        return list(range(0, self._n + 1))
     
     # Moments
     
     @property
     def mean(self) -> float:
-        return self.n * self.p
+        return self._n * self._p
     
     @property
     def variance(self) -> float:
-        return self.n * self.p * (1 - self.p)
+        return self._n * self._p * (1 - self._p)
     
     @property
     def mode(self) -> int:
-        return int((self.n + 1) * self.p)
+        return int((self._n + 1) * self._p)
     
     @property
     def skewness(self) -> float:
-        if self.n == 0 or self.p in (0, 1):
+        if self._n == 0 or self._p in (0, 1):
             return 0.0
-        return (1 - 2 * self.p) / sqrt(self.n * self.p * (1 - self.p))
+        return (1 - 2 * self._p) / sqrt(self._n * self._p * (1 - self._p))
     
     @property
     def kurtosis(self) -> float:
-        if self.n == 0 or self.p in (0, 1):
+        if self._n == 0 or self._p in (0, 1):
             return 0.0
-        return (1 - 6 * self.p * (1 - self.p)) / (self.n * self.p * (1 - self.p))
+        return (1 - 6 * self._p * (1 - self._p)) / (self._n * self._p * (1 - self._p))
     
     # Distribution functions
 
@@ -67,11 +77,11 @@ class BinomialDistribution(DiscreteDistribution):
 
         where C(n, k) is the binomial coefficient, "n choose k"
         """
-        if k < 0 or k > self.n:
+        if k < 0 or k > self._n:
             return 0.0
         if not isinstance(k, int):
             raise ValueError("k must be a non-negative integer.")
-        return comb(self.n, k) * (self.p ** k) * ((1 - self.p) ** (self.n - k))
+        return comb(self._n, k) * (self._p ** k) * ((1 - self._p) ** (self._n - k))
     
     def cdf(self, k: int) -> float:
         """

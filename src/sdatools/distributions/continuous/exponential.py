@@ -11,18 +11,24 @@ class ExponentialDistribution(ContinuousDistribution):
     def __init__(self, lam: float = 1.0):
         if lam <= 0:
             raise ValueError("Rate parameter lambda must be positive.")
-        self.lam = lam
+        self._lam = lam
+
+    # Parameters
+
+    @property
+    def lam(self) -> float:
+        return self._lam
 
     # Special methods
 
     def __repr__(self) -> str:
-        return f"ExponentialDistribution(lam={self.lam})"
+        return f"ExponentialDistribution(lam={self._lam})"
     
     def __str__(self) -> str:
-        return f"Exp({self.lam})"
+        return f"Exp({self._lam})"
     
     def __hash__(self) -> int:
-        return hash(self.lam)
+        return hash(self._lam)
     
     # Domain
 
@@ -34,11 +40,11 @@ class ExponentialDistribution(ContinuousDistribution):
     
     @property
     def mean(self) -> float:
-        return 1.0 / self.lam
+        return 1.0 / self._lam
     
     @property
     def variance(self) -> float:
-        return 1.0 / (self.lam ** 2)
+        return 1.0 / (self._lam ** 2)
     
     @property
     def skewness(self) -> float:
@@ -54,11 +60,11 @@ class ExponentialDistribution(ContinuousDistribution):
     def pdf(self, x: float) -> float:
         if x < 0:
             return 0.0
-        return self.lam * exp(-self.lam * x)
+        return self._lam * exp(-self._lam * x)
     
     # @vectorise_input
     def cdf(self, x: float) -> float:
         if x < 0:
             return 0.0
-        return 1.0 - exp(-self.lam * x)
+        return 1.0 - exp(-self._lam * x)
     

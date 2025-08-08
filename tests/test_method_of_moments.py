@@ -34,7 +34,7 @@ def test_method_of_moments_exponential():
     assert isinstance(fitted_dist, ExponentialDistribution)
 
     # Check the estimated parameters
-    assert fitted_dist.lam == (1 / mean)  # lambda = inverse of the mean
+    assert fitted_dist._lam == (1 / mean)  # lambda = inverse of the mean
 
 
 def test_method_of_moments_gamma():
@@ -52,5 +52,5 @@ def test_method_of_moments_gamma():
     assert isinstance(fitted_dist, GammaDistribution)
 
     # Check the estimated parameters
-    assert fitted_dist.alpha == 4.5  # alpha = mean**2 / variance
-    assert fitted_dist.beta == 2 / 3  # beta = variance / mean
+    assert fitted_dist._alpha == 4.5  # alpha = mean**2 / variance
+    assert fitted_dist._beta == 2 / 3  # beta = variance / mean

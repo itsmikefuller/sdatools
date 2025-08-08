@@ -14,21 +14,36 @@ class SkewNormalDistribution(ContinuousDistribution):
     def __init__(self, xi: float = 0.0, omega: float = 1.0, alpha: float = 0.0):  
         if omega <= 0:
             raise ValueError("Scale parameter omega must be positive.")
-        self.xi = xi
-        self.omega = omega
-        self.alpha = alpha
+        self._xi = xi
+        self._omega = omega
+        self._alpha = alpha
+
         self._delta = alpha / sqrt(1 + alpha ** 2)
 
     # Special methods
 
     def __repr__(self) -> str:
-        return f"SkewNormalDistribution(xi={self.xi}, omega={self.omega}, alpha={self.alpha})"    
+        return f"SkewNormalDistribution(xi={self._xi}, omega={self._omega}, alpha={self._alpha})"    
 
     def __str__(self) -> str:
-        return f"SN({self.xi}, {self.omega}, {self.alpha})"
+        return f"SN({self._xi}, {self._omega}, {self._alpha})"
     
     def __hash__(self) -> int:
-        return hash((self.xi, self.omega, self.alpha))
+        return hash((self._xi, self._omega, self._alpha))
+    
+    # Distribution parameters
+
+    @property
+    def xi(self) -> float:
+        return self._xi
+    
+    @property
+    def omega(self) -> float:
+        return self._omega
+    
+    @property
+    def alpha(self) -> float:
+        return self._alpha
     
     # Domain
 
@@ -40,11 +55,11 @@ class SkewNormalDistribution(ContinuousDistribution):
     
     @property
     def mean(self) -> float:
-        return self.xi + (self.omega * sqrt(2 / pi) * self._delta)
+        return self._xi + (self._omega * sqrt(2 / pi) * self._delta)
 
     @property
     def variance(self) -> float:
-        return (self.omega ** 2) * (1 - (2 * self._delta ** 2) / pi)
+        return (self._omega ** 2) * (1 - (2 * self._delta ** 2) / pi)
     
     @property
     def skewness(self) -> float:
@@ -58,13 +73,13 @@ class SkewNormalDistribution(ContinuousDistribution):
 
     # @vectorise_input
     def pdf(self, x: float) -> float:
-        z = (x - self.xi) / self.omega
-        return 2 / self.omega * phi(z) * Phi(self.alpha * z)
+        z = (x - self._xi) / self._omega
+        return 2 / self._omega * phi(z) * Phi(self._alpha * z)
     
     # @vectorise_input
     def cdf(self, x: float) -> float:
         # TODO: Implement without scipy
-        return float(skewnorm.cdf(x, self.alpha, loc=self.xi, scale=self.omega))
+        return float(skewnorm.cdf(x, self._alpha, loc=self._xi, scale=self._omega))
     
     # @vectorise_input
     def inverse_cdf(self, p: float) -> float:

@@ -21,24 +21,42 @@ class JohnsonSUDistribution(ContinuousDistribution):
             raise ValueError(f"Parameter xi must be positive.")
         if lam <= 0:
             raise ValueError(f"Parameter lam must be positive.")
-        self.gamma = gamma
-        self.delta = delta
-        self.xi = xi
-        self.lam = lam
+        self._gamma = gamma
+        self._delta = delta
+        self._xi = xi
+        self._lam = lam
 
-        self._deltaminus2 = self.delta ** (-2)
+        self._deltaminus2 = self._delta ** (-2)
 
     # Special methods
 
     def __repr__(self) -> str:
-        return f"JohnsonSUDistribution(gamma={self.gamma}, delta={self.delta}, xi={self.xi}, lam={self.lam})"    
+        return f"JohnsonSUDistribution(gamma={self._gamma}, delta={self._delta}, xi={self._xi}, lam={self._lam})"    
 
     def __str__(self) -> str:
-        return f"JSU({self.gamma}, {self.delta}, {self.xi}, {self.lam})"
+        return f"JSU({self._gamma}, {self._delta}, {self._xi}, {self._lam})"
     
     def __hash__(self) -> int:
-        return hash((self.gamma, self.delta, self.xi, self.lam))
+        return hash((self._gamma, self._delta, self._xi, self._lam))
     
+    # Distribution parameters
+
+    @property
+    def gamma(self) -> float:
+        return self._gamma
+    
+    @property
+    def delta(self) -> float:
+        return self._delta
+    
+    @property
+    def xi(self) -> float:
+        return self._xi
+    
+    @property
+    def lam(self) -> float:
+        return self._lam
+
     # Domain
 
     @property
@@ -49,31 +67,31 @@ class JohnsonSUDistribution(ContinuousDistribution):
     
     @property
     def mean(self) -> float:
-        trm1: float = self.lam * exp(self._deltaminus2 / 2)
-        trm2: float = sinh(self.gamma / self.delta)
-        return self.xi - trm1 * trm2
+        trm1: float = self._lam * exp(self._deltaminus2 / 2)
+        trm2: float = sinh(self._gamma / self._delta)
+        return self._xi - trm1 * trm2
 
     @property
     def variance(self) -> float:
-        trm1: float = self.lam ** 2 / 2
+        trm1: float = self._lam ** 2 / 2
         trm2: float = (exp(self._deltaminus2) - 1)
-        trm3: float = (exp(self._deltaminus2) * cosh(2 * self.gamma / self.delta) + 1)
+        trm3: float = (exp(self._deltaminus2) * cosh(2 * self._gamma / self._delta) + 1)
         return trm1 * trm2 * trm3
     
     @property
     def skewness(self) -> float:
-        num1: float = self.lam ** 3 * sqrt(exp(self._deltaminus2))
+        num1: float = self._lam ** 3 * sqrt(exp(self._deltaminus2))
         num2: float = (exp(self._deltaminus2) - 1) ** 2
-        num3: float = (exp(self._deltaminus2) * (exp(self._deltaminus2) + 2) * sinh(3 * self.gamma / self.delta) + 3 * sinh(self.gamma / self.delta))
+        num3: float = (exp(self._deltaminus2) * (exp(self._deltaminus2) + 2) * sinh(3 * self._gamma / self._delta) + 3 * sinh(self._gamma / self._delta))
         denom: float = 4 * self.variance ** 1.5
         return - num1 * num2 * num3 / denom
     
     @property
     def kurtosis(self) -> float:
-        k1: float = (exp(self._deltaminus2)) ** 2 * ((exp(self._deltaminus2)) ** 4 + 2 * (exp(self._deltaminus2)) ** 3 + 3 * (exp(self._deltaminus2)) ** 2 - 3) * cosh(4 * self.gamma / self.delta)
-        k2: float = 4 * (exp(self._deltaminus2)) ** 2 * (exp(self._deltaminus2) + 2) * cosh(3 * self.gamma / self.delta)
+        k1: float = (exp(self._deltaminus2)) ** 2 * ((exp(self._deltaminus2)) ** 4 + 2 * (exp(self._deltaminus2)) ** 3 + 3 * (exp(self._deltaminus2)) ** 2 - 3) * cosh(4 * self._gamma / self._delta)
+        k2: float = 4 * (exp(self._deltaminus2)) ** 2 * (exp(self._deltaminus2) + 2) * cosh(3 * self._gamma / self._delta)
         k3: float = 3 * (2 * exp(self._deltaminus2) + 1)
-        num: float = self.lam ** 4 * (exp(self._deltaminus2) - 1) ** 2 * (k1 + k2 + k3)
+        num: float = self._lam ** 4 * (exp(self._deltaminus2) - 1) ** 2 * (k1 + k2 + k3)
         denom: float = 8 * self.variance ** 2
         return num / denom
     
@@ -81,16 +99,16 @@ class JohnsonSUDistribution(ContinuousDistribution):
 
     # @vectorise_input
     def pdf(self, x: float) -> float:
-        z: float = (x - self.xi) / self.lam
-        trm1: float = self.delta / self.lam
+        z: float = (x - self._xi) / self._lam
+        trm1: float = self._delta / self._lam
         trm2: float = 1.0 / sqrt(1 + z ** 2)
-        trm3: float = phi(self.gamma + self.delta * np.arcsinh(z))
+        trm3: float = phi(self._gamma + self._delta * np.arcsinh(z))
         return trm1 * trm2 * trm3
     
     # @vectorise_input
     def cdf(self, x: float) -> float:
-        z: float = (x - self.xi) / self.lam
-        return Phi(self.gamma + self.delta * np.arcsinh(z))
+        z: float = (x - self._xi) / self._lam
+        return Phi(self._gamma + self._delta * np.arcsinh(z))
     
     # @vectorise_input
     def inverse_cdf(self, p: float) -> float:

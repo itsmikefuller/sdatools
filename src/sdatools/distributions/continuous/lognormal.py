@@ -15,21 +15,21 @@ class LogNormalDistribution(ContinuousDistribution):
     """
     
     def __init__(self, mu: float = 0.0, sigma: float = 1.0):  
-        self.mu = mu
         if sigma <= 0:
-            raise ValueError("Standard deviation must be positive.")
-        self.sigma = sigma
+            raise ValueError("Standard deviation, sigma, must be positive.")
+        self._mu = mu
+        self._sigma = sigma
 
     # Special methods
 
     def __repr__(self) -> str:
-        return f"LognormalDistribution(mu={self.mu}, sigma={self.sigma})"    
+        return f"LognormalDistribution(mu={self._mu}, sigma={self._sigma})"    
 
     def __str__(self) -> str:
-        return f"Lognormal({self.mu}, {self.sigma ** 2})"
+        return f"Lognormal({self._mu}, {self._sigma ** 2})"
     
     def __hash__(self) -> int:
-        return hash((self.mu, self.sigma))
+        return hash((self._mu, self._sigma))
 
     def __mul__(self, scalar) -> 'LogNormalDistribution':
         """
@@ -39,7 +39,7 @@ class LogNormalDistribution(ContinuousDistribution):
         """
         if not isinstance(scalar, (int, float)):
             raise TypeError("Can only multiply by a scalar (int or float).")
-        return LogNormalDistribution(self.mu + scalar, self.sigma)
+        return LogNormalDistribution(self._mu + scalar, self._sigma)
     
     def __rmul__(self, other):
         """
@@ -55,7 +55,17 @@ class LogNormalDistribution(ContinuousDistribution):
         """
         if not isinstance(scalar, (int, float)) or scalar == 0:
             raise ValueError("Can only divide by a non-zero scalar (int or float).")
-        return LogNormalDistribution(self.mu - scalar, self.sigma)
+        return LogNormalDistribution(self._mu - scalar, self._sigma)
+    
+    # Distribution parameters
+
+    @property
+    def mu(self) -> float:
+        return self._mu
+    
+    @property
+    def sigma(self) -> float:
+        return self._sigma
     
     # Domain
 
@@ -67,19 +77,19 @@ class LogNormalDistribution(ContinuousDistribution):
     
     @property
     def mean(self) -> float:
-        return exp(self.mu + self.sigma ** 2 / 2)
+        return exp(self._mu + self._sigma ** 2 / 2)
 
     @property
     def variance(self) -> float:
-        return (exp(self.sigma ** 2) - 1) * exp(2 * self.mu + self.sigma ** 2)
+        return (exp(self._sigma ** 2) - 1) * exp(2 * self._mu + self._sigma ** 2)
     
     @property
     def skewness(self) -> float:
-        return (exp(self.sigma ** 2) + 2) * sqrt(exp(self.sigma ** 2) - 1)
+        return (exp(self._sigma ** 2) + 2) * sqrt(exp(self._sigma ** 2) - 1)
     
     @property
     def kurtosis(self) -> float:
-        return exp(4 * self.sigma ** 2) + 2 * exp(3 * self.sigma ** 2) + 3 * exp(2 * self.sigma ** 2) - 6
+        return exp(4 * self._sigma ** 2) + 2 * exp(3 * self._sigma ** 2) + 3 * exp(2 * self._sigma ** 2) - 6
     
     # Distribution functions
 
@@ -87,19 +97,19 @@ class LogNormalDistribution(ContinuousDistribution):
     def pdf(self, x: float) -> float:
         if x <= 0:
             return 0.0
-        return (1.0 / (x * self.sigma * sqrt(2.0 * pi))) * exp(-((np.log(x) - self.mu) ** 2) / (2.0 * self.sigma ** 2))
+        return (1.0 / (x * self._sigma * sqrt(2.0 * pi))) * exp(-((np.log(x) - self._mu) ** 2) / (2.0 * self._sigma ** 2))
     
     # @vectorise_input
     def cdf(self, x: float) -> float:
         if x <= 0:
             return 0.0
-        return Phi((np.log(x) - self.mu) / self.sigma)
+        return Phi((np.log(x) - self._mu) / self._sigma)
     
     # @vectorise_input
     def inverse_cdf(self, p: float) -> float:
         validate_probability(p)
         # TODO: Implement without using scipy for educational purposes
-        return float(lognorm.ppf(p, loc=self.mu, scale=self.sigma))
+        return float(lognorm.ppf(p, loc=self._mu, scale=self._sigma))
     
     # Sampling
     
@@ -112,5 +122,5 @@ class LogNormalDistribution(ContinuousDistribution):
             raise ValueError("Sample size must be a positive integer.")
         if not isinstance(size, int):
             raise ValueError("Sample size must be an integer.")
-        return np.random.lognormal(mean=self.mu, sigma=self.sigma, size=size).tolist()
+        return np.random.lognormal(mean=self._mu, sigma=self._sigma, size=size).tolist()
     
