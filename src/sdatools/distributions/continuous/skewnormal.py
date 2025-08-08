@@ -42,20 +42,25 @@ class SkewNormalDistribution(ContinuousDistribution):
     
     # Domain
 
+    @property
     def domain(self) -> list[float]:
         return [float('-inf'), float('inf')]
     
     # Moments
     
+    @property
     def mean(self) -> float:
         return self.xi + (self.omega * sqrt(2 / pi) * self._delta)
 
+    @property
     def variance(self) -> float:
         return (self.omega ** 2) * (1 - (2 * self._delta ** 2) / pi)
     
+    @property
     def skewness(self) -> float:
         return (4 - pi) / 2 * (self._delta * sqrt(2 / pi)) ** 3 / ((1 - 2 * self._delta ** 2 / pi) ** (3/2))
     
+    @property
     def kurtosis(self) -> float:
         return 2 * (pi - 3) * (self._delta * sqrt(2 / pi)) ** 4 / ((1 - 2 * self._delta ** 2 / pi) ** 2)
     

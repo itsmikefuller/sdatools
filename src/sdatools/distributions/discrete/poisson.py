@@ -40,7 +40,8 @@ class PoissonDistribution(DiscreteDistribution):
         return hash(self.lam)
     
     # Domain
-
+    
+    @property
     def domain(self) -> list[float]:
         # Find maximum integer that produces PMF above machine epsilon
         k = 0
@@ -50,23 +51,26 @@ class PoissonDistribution(DiscreteDistribution):
     
     # Moments
     
+    @property
     def mean(self) -> float:
         return self.lam
     
+    @property
     def variance(self) -> float:
         return self.lam
     
+    @property
     def skewness(self) -> float:
         return 1 / sqrt(self.lam) if self.lam > 0 else float('inf')
     
+    @property
     def kurtosis(self) -> float:
         return 1 / self.lam if self.lam > 0 else float('inf')
     
     # Distribution functions
 
     def pmf(self, k: int) -> float:
-        """Probability Mass Function for the Poisson distribution.
-        
+        """
         P(X = k) = (lam^k * exp(-lam)) / k!
         """
         if k < 0 or not isinstance(k, int):
@@ -76,8 +80,7 @@ class PoissonDistribution(DiscreteDistribution):
         return exp(log_pmf)
     
     def cdf(self, k: int) -> float:
-        """Cumulative Distribution Function for the Poisson distribution.
-        
+        """
         P(X <= k) = sum(P(X = i) for i in range(0, k + 1))
         """
         if k < 0 or not isinstance(k, int):

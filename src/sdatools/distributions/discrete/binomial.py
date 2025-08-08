@@ -19,66 +19,52 @@ class BinomialDistribution(DiscreteDistribution):
     # Special methods
 
     def __repr__(self) -> str:
-        """String representation of the binomial distribution."""
         return f"BinomialDistribution(n={self.n}, p={self.p})"
     
     def __str__(self) -> str:
-        """String representation of the binomial distribution."""
-        return f"B({self.n}, {self.p})"
+        return f"Bin({self.n}, {self.p})"
 
     def __eq__(self, other: object) -> bool:
-        """Check equality of two binomial distributions."""
         if not isinstance(other, BinomialDistribution):
             return NotImplemented
         return self.n == other.n and self.p == other.p
     
     def __ne__(self, other: object) -> bool:
-        """Check inequality of two binomial distributions."""
         if not isinstance(other, BinomialDistribution):
             return NotImplemented
         return not self.__eq__(other)
     
     def __hash__(self) -> int:
-        """Return a hash value for the binomial distribution."""
         return hash((self.n, self.p))
     
     # Domain
 
+    @property
     def domain(self) -> list[int]:
         return list(range(0, self.n + 1))
     
     # Moments
     
+    @property
     def mean(self) -> float:
-        """Mean of the binomial distribution."""
         return self.n * self.p
     
+    @property
     def variance(self) -> float:
-        """Variance of the binomial distribution."""
         return self.n * self.p * (1 - self.p)
     
+    @property
     def mode(self) -> int:
-        """Mode of the binomial distribution.
-        
-        The mode is given by floor((n + 1) * p).
-        If n * p is an integer, both floor and ceil give the same mode.
-        """
         return int((self.n + 1) * self.p)
     
+    @property
     def skewness(self) -> float:
-        """Skewness of the binomial distribution.
-        
-        Skewness = (1 - 2 * p) / sqrt(n * p * (1 - p))
-        """
         if self.n == 0 or self.p in (0, 1):
             return 0.0
         return (1 - 2 * self.p) / sqrt(self.n * self.p * (1 - self.p))
     
+    @property
     def kurtosis(self) -> float:
-        """Kurtosis of the binomial distribution.
-        
-        Kurtosis = (1 - 6 * p * (1 - p)) / (n * p * (1 - p))
-        """
         if self.n == 0 or self.p in (0, 1):
             return 0.0
         return (1 - 6 * self.p * (1 - self.p)) / (self.n * self.p * (1 - self.p))
@@ -86,10 +72,10 @@ class BinomialDistribution(DiscreteDistribution):
     # Distribution functions
 
     def pmf(self, k: int) -> float:
-        """Probability Mass Function for the binomial distribution.
-        
+        """
         P(X = k) = C(n, k) * p^k * (1 - p)^(n - k)
-        where C(n, k) is the binomial coefficient "n choose k".
+
+        where C(n, k) is the binomial coefficient, "n choose k"
         """
         if k < 0 or k > self.n:
             return 0.0
@@ -98,8 +84,7 @@ class BinomialDistribution(DiscreteDistribution):
         return comb(self.n, k) * (self.p ** k) * ((1 - self.p) ** (self.n - k))
     
     def cdf(self, k: int) -> float:
-        """Cumulative Distribution Function for the binomial distribution.
-        
+        """
         P(X <= k) = sum(P(X = i) for i in range(0, k + 1))
         """
         if k < 0:

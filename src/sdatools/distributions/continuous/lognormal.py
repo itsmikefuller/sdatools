@@ -69,20 +69,25 @@ class LogNormalDistribution(ContinuousDistribution):
     
     # Domain
 
+    @property
     def domain(self) -> list[float]:
         return [0, float('inf')] # TODO: How to represent open interval in Python?
     
     # Moments
     
+    @property
     def mean(self) -> float:
         return exp(self.mu + self.sigma ** 2 / 2)
 
+    @property
     def variance(self) -> float:
         return (exp(self.sigma ** 2) - 1) * exp(2 * self.mu + self.sigma ** 2)
     
+    @property
     def skewness(self) -> float:
         return (exp(self.sigma ** 2) + 2) * sqrt(exp(self.sigma ** 2) - 1)
     
+    @property
     def kurtosis(self) -> float:
         return exp(4 * self.sigma ** 2) + 2 * exp(3 * self.sigma ** 2) + 3 * exp(2 * self.sigma ** 2) - 6
     

@@ -36,20 +36,25 @@ class UniformDistribution(ContinuousDistribution):
     
     # Domain
 
+    @property
     def domain(self) -> list[float]:
         return [self.a, self.b]
 
     # Moments
    
+    @property
     def mean(self) -> float:
         return (self.a + self.b) / 2
     
+    @property
     def variance(self) -> float:
         return (self.b - self.a) ** 2 / 12
     
+    @property
     def skewness(self) -> float:
         return 0.0
     
+    @property
     def kurtosis(self) -> float:
         return -1.2
 

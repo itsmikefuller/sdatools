@@ -95,20 +95,25 @@ class GammaDistribution(ContinuousDistribution):
 
     # Domain
 
+    @property
     def domain(self) -> list[float]:
         return [0, float('inf')]
     
     # Moments
     
+    @property
     def mean(self) -> float:
         return self.alpha * self.beta
 
+    @property
     def variance(self) -> float:
         return self.alpha * self.beta ** 2
     
+    @property
     def skewness(self) -> float:
         return 2.0 / sqrt(self.alpha)
     
+    @property
     def kurtosis(self) -> float:
         return 6.0 / self.alpha
     

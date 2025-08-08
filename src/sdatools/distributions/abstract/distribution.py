@@ -8,8 +8,26 @@ class Distribution(ABC):
     A base class for all probability distributions
     """
 
+    # TODO: Implement common special methods here, instead of in each distribution
+
+    # def __eq__(self, other: object) -> bool:
+    #     if not isinstance(other, Distribution):
+    #         return NotImplemented
+    #     return self.n == other.n and self.p == other.p
+    
+    # def __ne__(self, other: object) -> bool:
+    #     if not isinstance(other, Distribution):
+    #         return NotImplemented
+    #     return not self.__eq__(other)
+    
+    # def __hash__(self) -> int:
+    #     return hash((self.n, self.p))
+    
+    
     # Domain
     
+    # TODO: Determine a better way to represent a distribution domain
+    @property
     @abstractmethod
     def domain(self) -> list[int] | list[float]:
         """
@@ -23,6 +41,7 @@ class Distribution(ABC):
     
     # Moments
     
+    @property
     @abstractmethod
     def mean(self) -> float:
         """
@@ -38,6 +57,7 @@ class Distribution(ABC):
         """
         pass
 
+    @property
     @abstractmethod
     def variance(self) -> float:
         """
@@ -47,13 +67,15 @@ class Distribution(ABC):
         """
         pass
 
+    @property
     def stddev(self) -> float:
         """
         Returns the standard deviation of the distribution, defined as:
         stddev = sqrt(variance)
         """
-        return sqrt(self.variance())
+        return sqrt(self.variance)
 
+    @property
     @abstractmethod
     def skewness(self) -> float:
         """
@@ -63,6 +85,7 @@ class Distribution(ABC):
         """
         pass
 
+    @property
     @abstractmethod
     def kurtosis(self) -> float:
         """
@@ -74,16 +97,18 @@ class Distribution(ABC):
 
     # Sampling
 
+    # TODO: Make sample() an enforced method and implement in all distributions
     # @abstractmethod
-    # def sample(self, size: int = 1) -> list[float]:
-    #     pass
-
+    def sample(self, size: int = 1) -> list[float]:
+        """
+        Return a list of n (n=size) samples from the distribution
+        """
+        raise NotImplementedError("Sampling from a distribution not yet implemented.")
+    
+    # TODO: Implement sample mean distribution
     def sample_mean_distribution(self, n):
         pass
-        # TODO: Implement sample mean distribution
-        # return SampleMeanDistribution(self, n)
-
+    
+    # TODO: Implement sample variance distribution
     def sample_variance_distribution(self, n):
         pass
-        # TODO: Implement sample variance distribution
-        # return SampleVarianceDistribution(self, n)

@@ -97,20 +97,25 @@ class NormalDistribution(ContinuousDistribution):
     
     # Domain
 
+    @property
     def domain(self) -> list[float]:
         return [float('-inf'), float('inf')]
     
     # Moments
     
+    @property
     def mean(self) -> float:
         return self.mu
 
+    @property
     def variance(self) -> float:
         return self.sigma ** 2
     
+    @property
     def skewness(self) -> float:
         return 0.0
     
+    @property
     def kurtosis(self) -> float:
         return 0.0
     

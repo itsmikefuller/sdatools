@@ -36,20 +36,25 @@ class ExponentialDistribution(ContinuousDistribution):
     
     # Domain
 
+    @property
     def domain(self) -> list[float]:
         return [0, float('inf')]
 
     # Moments
     
+    @property
     def mean(self) -> float:
         return 1.0 / self.lam
     
+    @property
     def variance(self) -> float:
         return 1.0 / (self.lam ** 2)
     
+    @property
     def skewness(self) -> float:
         return 2.0
     
+    @property
     def kurtosis(self) -> float:
         return 6.0
     
