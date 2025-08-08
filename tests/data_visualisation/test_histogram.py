@@ -36,7 +36,7 @@ def test_histogram_plot_normal():
     # Check image manually for correctness!
     now = datetime.datetime.now()
     timestamp = now.strftime("%Y_%m_%d_%H_%M_%S")
-    histogram.save_fig(f'tests/images/{timestamp}_test_histogram_plot_normal.png')
+    histogram.save_fig(f'tests/_images/{timestamp}_test_histogram_plot_normal.png')
     assert True
 
 
@@ -63,5 +63,5 @@ def test_histogram_plot_normal2():
     # Check image manually for correctness!
     now = datetime.datetime.now()
     timestamp = now.strftime("%Y_%m_%d_%H_%M_%S")
-    histogram.save_fig(f'tests/images/{timestamp}_test_histogram_plot_normal2.png')
+    histogram.save_fig(f'tests/_images/{timestamp}_test_histogram_plot_normal2.png')
     assert True

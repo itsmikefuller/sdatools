@@ -56,4 +56,4 @@ def test_qq_plot_normal():
     # Check image manually for correctness!
     now = datetime.datetime.now()
     timestamp = now.strftime("%Y_%m_%d_%H_%M_%S")
-    qq_plot.save_fig(f'tests/images/{timestamp}_test_qq_plot_normal.png')
+    qq_plot.save_fig(f'tests/_images/{timestamp}_test_qq_plot_normal.png')
