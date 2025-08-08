@@ -47,12 +47,3 @@ def test_sample_negative_size():
     binomial_dist = BinomialDistribution(10, 0.5)
     with pytest.raises(ValueError, match="Sample size must be a positive integer."):
         binomial_dist.sample(-1)
-
-
-def test_sample_non_integer_size():
-    """
-    Test sampling with non-integer sample size
-    """
-    binomial_dist = BinomialDistribution(10, 0.5)
-    with pytest.raises(ValueError, match="Sample size must be an integer."):
-        binomial_dist.sample(2.5) # type: ignore

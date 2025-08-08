@@ -10,9 +10,15 @@ from sdatools.distributions import ContinuousDistribution
 
 class JohnsonSUDistribution(ContinuousDistribution):
     """
-    A class implementing the Johnson's SU distribution family, as specified in Wikipedia
+    A class implementing the Johnson's SU (JSU) distribution family, as specified in Wikipedia:
 
     https://en.wikipedia.org/wiki/Johnson%27s_SU-distribution
+
+    The JSU distribution is a transformation of the Normal distribution according to:
+
+    z = gamma + delta * arcsinh((x - xi) / lambda)
+    
+    where z ~ N(0, 1)
     """
     
     def __init__(self, gamma: float = 0.0, delta: float = 1.0, xi: float = 0.0, lam: float = 1.0):  

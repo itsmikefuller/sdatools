@@ -16,8 +16,8 @@ def test_method_of_moments_normal():
     fitted_dist = mom.fit(NormalDistribution())
     
     # Check the estimated parameters
-    assert isclose(fitted_dist.mean(), mean)
-    assert isclose(fitted_dist.stddev(), stddev)
+    assert isclose(fitted_dist.mean, mean)
+    assert isclose(fitted_dist.stddev, stddev)
 
 
 def test_method_of_moments_exponential():

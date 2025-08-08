@@ -18,7 +18,7 @@ class Histogram:
             bins: int = 50
             ):
         if not all(isinstance(x, (int, float)) for x in data):
-            raise TypeError("Data must be a list.")
+            raise TypeError("Data must be numeric")
         self.data: np.ndarray = np.asarray(data)
         self.min: float = min_SeriesLike(data)
         self.max: float = max_SeriesLike(data)

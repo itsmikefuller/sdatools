@@ -39,7 +39,7 @@ def min_SeriesLike(data: SeriesLike) -> float:
         data (SeriesLike): Input data, which can be a list, numpy array, or pandas series
         
     Returns:
-        float: (min, max) of the input data
+        float: minimum entry of the input data
     """
     if isinstance(data, list):
         data = np.array(data)
@@ -62,10 +62,19 @@ def max_SeriesLike(data: SeriesLike) -> float:
         data (SeriesLike): Input data, which can be a list, numpy array, or pandas series
         
     Returns:
-        float: (min, max) of the input data
+        float: maximum entry of the input data
     """
-    neg_min = min_SeriesLike(data * -1)
-    return -neg_min
+    if isinstance(data, list):
+        data = np.array(data)
+    
+    if isinstance(data, np.ndarray):
+        return np.max(data)
+    
+    elif isinstance(data, pd.Series):
+        return data.max()
+    
+    else:
+        raise TypeError(f"Unsupported data type: {type(data)}")
 
 
 # Validation helper functions
