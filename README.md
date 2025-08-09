@@ -9,7 +9,7 @@
 
 **Author:** Mike Fuller
 
-**Last Updated:** 7th August 2025
+**Last Updated:** 9th August 2025
 
 This repository contains the source code for `sdatools`, a **work-in-progress** Python package I am developing to kill two birds with one stone: build my very first Python package whilst refreshing my knowledge of various statistics and data analysis techniques. I am taking a bottom-up approach as much as possible: whilst the package occasionally leverages well-known scientific packages like `numpy`, `pandas`, `scipy` and `matplotlib`, I aim to build most modules from scratch.
 
@@ -39,21 +39,21 @@ Q-Q plots and histograms are currently supported.
 
 ### [`sdatools.distributions`](https://github.com/itsmikefuller/sdatools/tree/main/src/sdatools/distributions)
 
-Contains a suite of continuous and discrete distributions. The `base_distribution.py` file contains an abstract base class, `Distribution`, from which all distributions are built. This class is further built upon in the `continuous` and `discrete` sub-modules, which have abstract classes `ContinuousDistribution` and `DiscreteDistribution` respectively. The purpose of these abstract classes is to make sure that probabilty density functions (PDFs), probability mass functions (PMFs), and cumulative distribution functions (CDFs) are enforced whenever new distributions are added to `sdatools`.
+Contains a suite of continuous and discrete distributions. The `abstract` directory contains an abstract base class, `Distribution`, from which all distributions are built. This directory also includes abstract classes `ContinuousDistribution` and `DiscreteDistribution` respectively, which enforce usage of probabilty density functions (PDFs), probability mass functions (PMFs), and cumulative distribution functions (CDFs).
 
 ### [`sdatools.numerical_methods`](https://github.com/itsmikefuller/sdatools/tree/main/src/sdatools/numerical_methods)
 
-Will contain algorithms and approximation techniques that will be desirable across the `sdatools` package. As of version 0.1.0, the `quadrature` sub-module has been populated with a range of Newton-Cotes qudarature rules (Trapezium, Simpson, Simpson 3/8, Boole), and has been abstracted with the `QuadratureRule` base class for ease of future quadrature rule additions.
+Contain algorithms and approximation techniques as and when they become desirable in `sdatools` case studies. Currently, the `quadrature` sub-module has been populated with a range of Newton-Cotes quadrature rules (Trapezium, Simpson, Simpson 3/8, Boole), as well as a composite rule class. All rules are built from the `QuadratureRule` abstract base class in the `abstract` directory.
 
 ### [`sdatools.parameter_estimation`](https://github.com/itsmikefuller/sdatools/tree/main/src/sdatools/parameter_estimation)
 
-Will contain techniques for estimating distribution parameters from a dataset and assessing the accuracy of the parameters, such as maximum likelihood estimation (MLE) and confidence intervals.
+Contains techniques for estimating distribution parameters from a dataset. Currently, the Method of Moments has been implemented and is compatible with a range of distributions (Normal, Exponential, Gamma, Lognormal, Skew-normal).
 
-### `sdatools.supervised_learning`
+### `sdatools.supervised_learning` (TBC)
 
-This module will contain standard learning techniques for dealing with labelled datasets, such as linear and multivariate regressions, support vector machines (SVMs), and neural networks.
+Will contain standard learning techniques for dealing with labelled datasets, such as linear and multivariate regressions, support vector machines (SVMs), and neural networks.
 
-### `sdatools.unsupervised_learning`
+### `sdatools.unsupervised_learning` (TBC)
 
 Will contain standard techniques for dealing with unlabelled datasets, such as hierarchical and $k$-means clustering, and principal components analysis (PCA). 
 
@@ -62,9 +62,9 @@ The techniques in both supervised and unsupervised learning often seek to ask th
 - For large datasets, is it possible to reduce the dataset's size (dimension) whilst retaining all (or almost all) information?
 - Can we identify distinct subgroups or clusters within the data that reflect its underlying structure?
  
-### `sdatools.validation`
+### `sdatools.validation` (TBC)
 
-Will contain a selection of statistical techniques and tests that an end user can run for model validation purposes. The `goodness_of_fit` sub-module will contain a variety of statistical tests, such as chi-squared, Kolmogorov-Smirnov, Shapiro-Wilk, and Anderson-Darling. The `cross-validation` sub-module will contain a class for running out-of-sample testing.
+Will contain statistical tests that an end user can run for model validation purposes. The `goodness_of_fit` sub-module will contain a variety of statistical tests, such as chi-squared, Kolmogorov-Smirnov, Shapiro-Wilk, and Anderson-Darling. The `cross-validation` sub-module will contain a class for running out-of-sample testing.
 
 ## Case Studies
 
@@ -81,4 +81,4 @@ For this demonstration, we will use the S&P 500 TRI, obtained from Yahoo Finance
 
 ## Ongoing Development
 
-My current focus is building out the `distributions` module, as well as a small selection of goodness-of-fit tests in the `validation` module. Following the [Calibrating a Total Return Index model](https://github.com/itsmikefuller/sdatools/tree/main/case_studies/total_return_index/total_return_index.ipynb) case study, I noted that the current suite of distributions in `sdatools` needs expansion to accomodate distributions with fatter tails.
+My current focus is building out the `distributions` module and adding a goodness-of-fit test to the `validation` module. Following the [Calibrating a Total Return Index model](https://github.com/itsmikefuller/sdatools/tree/main/case_studies/total_return_index/total_return_index.ipynb) case study, I noted that the current suite of distributions in `sdatools` needs expansion to accomodate distributions with fatter tails.
