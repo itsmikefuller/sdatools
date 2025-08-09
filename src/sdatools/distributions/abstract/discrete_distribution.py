@@ -6,7 +6,7 @@ from sdatools.distributions import Distribution
 
 class DiscreteDistribution(Distribution):
     """
-    Abstract base class for continuous probability distributions.
+    Abstract base class for discrete probability distributions.
         
     Subclasses must implement:
     --------------------------
@@ -17,13 +17,13 @@ class DiscreteDistribution(Distribution):
     - kurtosis        : Excess kurtosis of the distribution.
     - pmf(x)          : Probability mass function.
     - cdf(x)          : Cumulative distribution function.
-    - sample(size=1)  : Generate n (n=size) samples from the distribution.
     - __repr__        : String representation of the distribution.
     - __hash__        : Hash representation of the distribution.
 
     Provided by base class:
     -----------------------
     - stddev          : Standard deviation of the distribution.
+    - sample(size=1)  : Generate n (n=size) samples from the distribution.
     - __str__         : Shortened string representation (defaults to __repr__).
     - __eq__          : Check if two distributions are equal
     - __ne__          : Check if two distributions are not equal.
