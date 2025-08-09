@@ -1,4 +1,5 @@
 from math import sinh, sqrt, isfinite
+import numpy as np
 import pytest
 
 from sdatools.core.constants import EXP_LIMIT
@@ -75,6 +76,19 @@ def test_kurtosis_finite(dist):
 def test_variance_positive(dist):
     assert dist.variance > 0
 
+@pytest.mark.parametrize('dist', [jsu_dist1(), jsu_dist2(), jsu_dist3()])
+def test_pdf_positive(dist):
+    domain = np.linspace(-5, 5, 100)
+    assert all(dist.pdf(x) for x in domain)
+
+@pytest.mark.parametrize('dist', [jsu_dist1(), jsu_dist2(), jsu_dist3()])
+def test_cdf_monotonic(dist):
+    domain = np.linspace(-5, 5, 100)
+    cdf = [dist.cdf(x) for x in domain]
+    assert all(cdf[i] <= cdf[i+1] for i in range(len(cdf)-1))
+    assert 0 <= cdf[0] <= 1
+    assert 0 <= cdf[-1] <= 1
+    
 
 # Specific fixture properties
 
