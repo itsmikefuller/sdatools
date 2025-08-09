@@ -6,7 +6,24 @@ from sdatools.distributions import Distribution
 
 class DiscreteDistribution(Distribution):
     """
-    A base class for discrete probability distributions
+    Abstract base class for continuous probability distributions.
+        
+    Subclasses must implement the following methods / properties:
+        - domain: Domain of the distribution.
+        - mean: Mean of the distribution.
+        - variance: Variance of the distribution.
+        - skewness: Skewness of the distribution.
+        - kurtosis: Excess kurtosis of the distribution.
+        - pmf(x): Probability mass function.
+        - cdf(x): Cumulative distribution function.
+        - __repr__: String representation of the distribution.
+        - __hash__: Hash representation of the distribution.
+
+    Methods / properties provided:
+        - stddev: Standard deviation of the distribution.
+        - sample(size=1): Generate n (n=size) samples from the distribution.
+        - __str__: String representation (takes value of __repr__ if not provided).
+        - __eq__, __ne__: Check if two distributions are equal / not equal.
     """
 
     # Distribution functions
@@ -14,14 +31,14 @@ class DiscreteDistribution(Distribution):
     @abstractmethod
     def pmf(self, k) -> float:
         """
-        Probability Mass Function
+        Probability mass function.
         """
         pass
 
     @abstractmethod
     def cdf(self, k) -> float:
         """
-        Cumulative Distribution Function
+        Cumulative distribution function.
         """
         pass
 

@@ -6,7 +6,24 @@ from sdatools.distributions import Distribution
 
 class ContinuousDistribution(Distribution):
     """
-    A base class for continuous probability distributions
+    Abstract base class for continuous probability distributions.
+
+    Subclasses must implement the following methods / properties:
+        - domain: Domain of the distribution.
+        - mean: Mean of the distribution.
+        - variance: Variance of the distribution.
+        - skewness: Skewness of the distribution.
+        - kurtosis: Excess kurtosis of the distribution.
+        - sample(size=1): Generate n (n=size) samples from the distribution.
+        - pdf(x): Probability density function.
+        - cdf(x): Cumulative distribution function.
+        - __repr__: String representation of the distribution.
+        - __hash__: Hash representation of the distribution.
+
+    Methods / properties provided:
+        - stddev: Standard deviation of the distribution.
+        - __str__: String representation (takes value of __repr__ if not provided).
+        - __eq__, __ne__: Check if two distributions are equal / not equal.
     """
  
     # Distribution functions
@@ -14,24 +31,13 @@ class ContinuousDistribution(Distribution):
     @abstractmethod
     def pdf(self, x: float) -> float:
         """
-        Probability Density Function
+        Probability Density Function.
         """
         pass
 
     @abstractmethod
     def cdf(self, x: float) -> float:
         """
-        Cumulative Distribution Function
+        Cumulative Distribution Function.
         """
         pass
-
-    # Sampling
-
-    # @abstractmethod
-    # def sample(self, size: int = 1) -> list[float]:
-    #     """Generate a sample of size `size` from the continuous distribution."""
-    #     if size <= 0:
-    #         raise ValueError("Sample size must be a positive integer.")
-    #     if not isinstance(size, int):
-    #         raise ValueError("Sample size must be an integer.")
-    #     raise NotImplementedError("Sample method is not implemented for this continuous distribution.")
