@@ -5,6 +5,7 @@ from scipy.stats import norm
 from sdatools.core.functions import phi, Phi
 from sdatools.core.utils import vectorise_input, validate_probability
 from sdatools.core.types import SeriesLike
+from sdatools.core.constants import EXP_LIMIT
 from sdatools.distributions import ContinuousDistribution
 
 
@@ -31,9 +32,9 @@ class JohnsonSUDistribution(ContinuousDistribution):
         self._xi = xi
         self._lam = lam
 
-        # Helper parameters
+        # Pre-compute for performance; guard against overflow in exp(1 / delta ** 2)
         self._dmin2 = self._delta ** (-2)
-        self._expdmin2 = float("inf") if self._dmin2 > 700 else exp(self._dmin2) # exp(709) ~ 1e308 is near float max
+        self._expdmin2 = float("inf") if self._dmin2 > EXP_LIMIT else exp(self._dmin2)
 
     # Special methods
 
