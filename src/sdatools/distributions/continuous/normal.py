@@ -1,5 +1,4 @@
 from math import sqrt
-import numpy as np
 from scipy.stats import norm
 
 from sdatools.core.functions import phi, Phi
@@ -9,7 +8,7 @@ from sdatools.distributions import ContinuousDistribution
 
 class NormalDistribution(ContinuousDistribution):
     """
-    A class representing a normal distribution with mean mu and standard deviation sigma
+    Class for a Normal distribution with mean mu and standard deviation sigma
     
     Note: a NormalDistribution(mu, sigma) object relates to the random variable X ~ N(mu, sigma**2)
     """
@@ -85,6 +84,7 @@ class NormalDistribution(ContinuousDistribution):
         new_sigma = self._sigma / abs(scalar)
         return NormalDistribution(new_mu, new_sigma)
     
+
     # Distribution parameters
 
     @property
@@ -95,12 +95,14 @@ class NormalDistribution(ContinuousDistribution):
     def sigma(self) -> float:
         return self._sigma
     
+
     # Domain
 
     @property
     def domain(self) -> list[float]:
         return [float('-inf'), float('inf')]
     
+
     # Moments
     
     @property
@@ -119,6 +121,7 @@ class NormalDistribution(ContinuousDistribution):
     def kurtosis(self) -> float:
         return 0.0
     
+
     # Distribution functions
 
     # @vectorise_input
@@ -132,19 +135,7 @@ class NormalDistribution(ContinuousDistribution):
     # @vectorise_input
     def inverse_cdf(self, p: float) -> float:
         validate_probability(p)
-        # TODO: Implement without using scipy for educational purposes
+        # TODO: Implement without using SciPy for better understanding
         return float(norm.ppf(p, loc=self._mu, scale=self._sigma))
     
-    # Sampling
-    
-    def sample(self, size: int = 1) -> list[float]:
-        """
-        Generate n samples (n = size) from the Normal distribution
-        """
-        # TODO: Implement manually using Box-Muller transform or similar method
-        if size <= 0:
-            raise ValueError("Sample size must be a positive integer.")
-        if not isinstance(size, int):
-            raise ValueError("Sample size must be an integer.")
-        return np.random.normal(loc=self._mu, scale=self._sigma, size=size).tolist()
-    
+   

@@ -28,8 +28,10 @@ Standard deviation is calculated automatically using the variance, and is access
 
 `DiscreteDistribution` and `ContinuousDistribution` enforce further implementations specific to each distribution type, such as:
 
-- `pdf(x)` / `pmf(x)`
-- `cdf(x)`
+- `pdf(x)` / `pmf(x)`,
+- `cdf(x)`.
+
+Distributions where the inverse CDF, `inverse_cdf()`, has been implemented automatically implement a sampling method, `sample()`, using the inverse CDF.
 
 ## Examples
 

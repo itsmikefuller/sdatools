@@ -156,18 +156,17 @@ class Distribution(ABC):
     
     # Sampling
 
-    # TODO: Make sample() an enforced method and implement in all distributions
-    # @abstractmethod
+    @abstractmethod
     def sample(self, size: int = 1) -> SeriesLike:
         """
         Generate n (n=size) samples from the distribution.
         """
-        raise NotImplementedError("Sampling from a distribution not yet implemented.")
+        pass
     
     # TODO: Implement sample mean distribution
-    def sample_mean_distribution(self, n):
-        pass
+    # def sample_mean_distribution(self, n):
+    #     pass
     
     # TODO: Implement sample variance distribution
-    def sample_variance_distribution(self, n):
-        pass
+    # def sample_variance_distribution(self, n):
+    #     pass

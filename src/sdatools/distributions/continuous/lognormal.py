@@ -4,14 +4,15 @@ from scipy.stats import lognorm
 
 from sdatools.core.functions import Phi
 from sdatools.core.utils import vectorise_input, validate_probability
+from sdatools.core.types import SeriesLike
 from sdatools.distributions import ContinuousDistribution
 
 
 class LogNormalDistribution(ContinuousDistribution):
     """
-    A class representing a lognormal distribution with mean mu and standard deviation sigma
+    Class for a Lognormal distribution with mean mu and standard deviation sigma.
     
-    Note: a LognormalDistribution(mu, sigma) object relates to the random variable ln(X) ~ N(mu, sigma**2)
+    Note: a LognormalDistribution(mu, sigma) object relates to the random variable ln(X) ~ N(mu, sigma**2).
     """
     
     def __init__(self, mu: float = 0.0, sigma: float = 1.0):  
@@ -33,9 +34,9 @@ class LogNormalDistribution(ContinuousDistribution):
 
     def __mul__(self, scalar) -> 'LogNormalDistribution':
         """
-        Left multiplication to allow LognormalDistribution * scalar
+        Left multiplication to allow LognormalDistribution * scalar.
 
-        If ln(X) ~ N(mu, sigma**2) and c > 0, then c * ln(X) ~ N(mu + ln(c), sigma**2)
+        If ln(X) ~ N(mu, sigma**2) and c > 0, then c * ln(X) ~ N(mu + ln(c), sigma**2).
         """
         if not isinstance(scalar, (int, float)):
             raise TypeError("Can only multiply by a scalar (int or float).")
@@ -43,15 +44,15 @@ class LogNormalDistribution(ContinuousDistribution):
     
     def __rmul__(self, other):
         """
-        Right multiplication to allow scalar * NormalDistribution
+        Right multiplication to allow scalar * NormalDistribution.
         """
         return self.__mul__(other)
 
     def __truediv__(self, scalar) -> 'LogNormalDistribution':
         """
-        Divide the normal distribution by a scalar
+        Divide the normal distribution by a scalar.
 
-        If ln(X) ~ N(mu, sigma**2) and c > 0, then ln(X) / c ~ N(mu - ln(c), sigma**2)
+        If ln(X) ~ N(mu, sigma**2) and c > 0, then ln(X) / c ~ N(mu - ln(c), sigma**2).
         """
         if not isinstance(scalar, (int, float)) or scalar == 0:
             raise ValueError("Can only divide by a non-zero scalar (int or float).")
@@ -113,14 +114,12 @@ class LogNormalDistribution(ContinuousDistribution):
     
     # Sampling
     
-    def sample(self, size: int = 1) -> list[float]:
+    def sample(self, size: int = 1) -> SeriesLike:
         """
-        Generate n samples (n = size) from the Normal distribution
+        Generate n samples (n = size) from the Lognormal distribution.
         """
-        # TODO: Implement manually using Box-Muller transform or similar method
         if size <= 0:
             raise ValueError("Sample size must be a positive integer.")
-        if not isinstance(size, int):
-            raise ValueError("Sample size must be an integer.")
-        return np.random.lognormal(mean=self._mu, sigma=self._sigma, size=size).tolist()
+        z: np.ndarray = np.random.normal(size=size) # TODO: Implement using NormalDistribution().sample(size)
+        return np.exp(self._mu + self._sigma * z)
     

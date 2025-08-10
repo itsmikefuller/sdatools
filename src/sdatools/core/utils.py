@@ -3,7 +3,7 @@ import pandas as pd
 from functools import wraps
 from typing import Callable
 
-from sdatools.core.types import NumericLike, SeriesLike
+from sdatools.core.types import ArrayLike, SeriesLike
 
 
 def vectorise_input(func: Callable) -> Callable:

@@ -96,8 +96,6 @@ class SkewNormalDistribution(ContinuousDistribution):
         # TODO: Implement manually using Box-Muller transform or similar method
         if size <= 0:
             raise ValueError("Sample size must be a positive integer.")
-        if not isinstance(size, int):
-            raise ValueError("Sample size must be an integer.")
         raise NotImplementedError("Sampling from SkewNormalDistribution is not implemented yet.")
         # return skewnorm.rvs(self.alpha, loc=self.xi, scale=self.omega, size=size).tolist()
     

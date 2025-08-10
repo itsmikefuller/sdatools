@@ -1,11 +1,14 @@
-from math import exp
+from math import exp, log
+import numpy as np
 
+from sdatools.core.types import SeriesLike
+from sdatools.core.utils import validate_probability
 from sdatools.distributions import ContinuousDistribution
 
 
 class ExponentialDistribution(ContinuousDistribution):
     """
-    A class representing an Exponential distribution with rate parameter lambda
+    Class for Exponential distribution with rate parameter lambda.
     """
     
     def __init__(self, lam: float = 1.0):
@@ -13,11 +16,6 @@ class ExponentialDistribution(ContinuousDistribution):
             raise ValueError("Rate parameter lambda must be positive.")
         self._lam = lam
 
-    # Parameters
-
-    @property
-    def lam(self) -> float:
-        return self._lam
 
     # Special methods
 
@@ -30,11 +28,20 @@ class ExponentialDistribution(ContinuousDistribution):
     def __hash__(self) -> int:
         return hash(self._lam)
     
+
+    # Distribution parameters
+
+    @property
+    def lam(self) -> float:
+        return self._lam
+    
+
     # Domain
 
     @property
     def domain(self) -> list[float]:
         return [0, float('inf')]
+
 
     # Moments
     
@@ -68,3 +75,6 @@ class ExponentialDistribution(ContinuousDistribution):
             return 0.0
         return 1.0 - exp(-self._lam * x)
     
+    def inverse_cdf(self, p: float) -> float:
+        validate_probability(p)
+        return log(1 / (1 - p)) / self._lam

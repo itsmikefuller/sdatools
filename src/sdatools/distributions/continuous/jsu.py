@@ -6,20 +6,21 @@ from sdatools.core.functions import phi, Phi
 from sdatools.core.utils import vectorise_input, validate_probability
 from sdatools.core.types import SeriesLike
 from sdatools.core.constants import EXP_LIMIT
-from sdatools.distributions import ContinuousDistribution
+from sdatools.distributions import ContinuousDistribution, NormalDistribution
 
 
 class JohnsonSUDistribution(ContinuousDistribution):
     """
-    A class implementing the Johnson's SU (JSU) distribution family, as specified in Wikipedia:
+    Class for a Johnson's SU (JSU) distribution.
 
+    Implementation is based on Wikipedia definition: 
     https://en.wikipedia.org/wiki/Johnson%27s_SU-distribution
 
     The JSU distribution is a transformation of the Normal distribution according to:
 
     g(x) = xi + lambda * sinh((z - gamma) / delta),
 
-    where z ~ N(0, 1)
+    where z ~ N(0, 1).
     """
     
     def __init__(self, gamma: float = 0.0, delta: float = 1.0, xi: float = 0.0, lam: float = 1.0):  
@@ -52,32 +53,32 @@ class JohnsonSUDistribution(ContinuousDistribution):
     @property
     def gamma(self) -> float:
         """
-        Location parameter applied before sinh-transforming the Normal distribution
+        Location parameter applied before sinh-transforming the Normal distribution.
 
-        gamma > 0 gives a long left tail (and gamma < 0 a long right tail)
+        gamma > 0 gives a long left tail (and gamma < 0 a long right tail).
         """
         return self._gamma
     
     @property
     def delta(self) -> float:
         """
-        Scale parameter applied before sinh-transforming the Normal distribution
+        Scale parameter applied before sinh-transforming the Normal distribution.
 
-        Smaller values of delta give heavier distribution tails
+        Smaller values of delta give heavier distribution tails.
         """
         return self._delta
     
     @property
     def xi(self) -> float:
         """
-        Location parameter applied after sinh-transforming the Normal distribution
+        Location parameter applied after sinh-transforming the Normal distribution.
         """
         return self._xi
     
     @property
     def lam(self) -> float:
         """
-        Scale parameter applied after sinh-transforming the Normal distribution
+        Scale parameter applied after sinh-transforming the Normal distribution.
         """
         return self._lam
 
@@ -124,13 +125,13 @@ class JohnsonSUDistribution(ContinuousDistribution):
     # @vectorise_input
     def pdf(self, x: float) -> float:
         """
-        PDF of the Johnson SU distribution, derived from the probability transform
+        PDF of the Johnson SU distribution, derived from the probability transform.
 
         f(y) = phi(g^{-1}(y)) * |d/dy g^{-1}(y)|,
         
         where phi(x) is the standard Normal PDF and
 
-        g^{-1}(y) = gamma + delta * arcsinh((x - xi) / lambda)
+        g^{-1}(y) = gamma + delta * arcsinh((x - xi) / lambda).
         """
         z: float = (x - self._xi) / self._lam
         trm1: float = self._delta / self._lam
@@ -152,8 +153,8 @@ class JohnsonSUDistribution(ContinuousDistribution):
     # Sampling
     
     def sample(self, size: int = 1) -> SeriesLike:
-        if not isinstance(size, int) or size <= 0:
+        if size <= 0:
             raise ValueError("Sample size must be a positive integer.")
-        z: np.ndarray = np.random.normal(size=size)
+        z: np.ndarray = np.random.normal(size=size) # TODO: Implement using NormalDistribution().sample(size)
         return self._xi + self._lam * np.sinh((z - self._gamma) / self._delta)
     

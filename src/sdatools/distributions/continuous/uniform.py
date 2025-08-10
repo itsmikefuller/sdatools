@@ -1,11 +1,12 @@
 import numpy as np
 
+from sdatools.core.utils import vectorise_input, validate_probability
 from sdatools.distributions import ContinuousDistribution
 
 
 class UniformDistribution(ContinuousDistribution):
     """
-    A class representing a Uniform distribution on the interval [a, b]
+    Class for a Uniform distribution on the interval [a, b].
     """
     def __init__(self, a: float = 0.0, b: float = 1.0):
         if a >= b:
@@ -78,20 +79,6 @@ class UniformDistribution(ContinuousDistribution):
 
     # @vectorise_input    
     def inverse_cdf(self, p: float) -> float:
-        if not (0 <= p <= 1):
-            raise ValueError("Probability p must be in the range [0, 1].")
+        validate_probability(p)
         return self._a + p * (self._b - self._a)
-
-    # Sampling
-
-    def sample(self, size: int = 1) -> list[float]:
-        """
-        Generate n samples (n = size) from the Uniform distribution
-        """
-        # TODO: Implement sample method for uniform distribution manually
-        if size <= 0:
-            raise ValueError("Sample size must be a positive integer.")
-        if not isinstance(size, int):
-            raise ValueError("Sample size must be an integer.")
-        return np.random.uniform(low=self._a, high=self._b, size=size).tolist()
     

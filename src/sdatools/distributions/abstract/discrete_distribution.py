@@ -56,7 +56,6 @@ class DiscreteDistribution(Distribution):
         """
         if size <= 0:
             raise ValueError("Sample size must be a positive integer.")
-        outcomes = self.domain
-        probabilities = [self.pmf(k) for k in outcomes]
-        return choices(outcomes, weights=probabilities, k=size)
+        probabilities = [self.pmf(k) for k in self.domain] # TODO: ensure discrete domain is an iterable
+        return choices(population=self.domain, weights=probabilities, k=size)
     

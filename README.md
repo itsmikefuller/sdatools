@@ -9,7 +9,7 @@
 
 **Author:** Mike Fuller
 
-**Last Updated:** 9th August 2025
+**Last Updated:** 10th August 2025
 
 This repository contains the source code for `sdatools`, a **work-in-progress** Python package I am developing to kill two birds with one stone: build my very first Python package whilst refreshing my knowledge of various statistics and data analysis techniques. I am taking a bottom-up approach as much as possible: whilst the package occasionally leverages well-known scientific packages like `numpy`, `pandas`, `scipy` and `matplotlib`, I aim to build most modules from scratch.
 
@@ -29,7 +29,7 @@ Contains fundamental utilities and mathematical functions used throughout the `s
 
 The `functions` sub-module implements Normal distribution functions $\phi(x)$, $\Phi(x)$ and the error function `erf(x)`. 
 
-The `utils` sub-module presents a decorator, `vectorise_input`, which allows scalar functions to be extended to array-like objects and computed element-wise. Such array-like objects are defined as `NumericLike` in the `types` sub-module. 
+The `utils` sub-module presents a decorator, `vectorise_input`, which allows scalar functions to be extended to array-like objects and computed element-wise. Such array-like objects are defined as `ArrayLike` (or `SeriesLike` for 1D array-like objects) in the `types` sub-module. 
 
 ### [`sdatools.data_visualisation`](https://github.com/itsmikefuller/sdatools/tree/main/src/sdatools/data_visualisation)
 
@@ -39,11 +39,26 @@ Q-Q plots and histograms are currently supported.
 
 ### [`sdatools.distributions`](https://github.com/itsmikefuller/sdatools/tree/main/src/sdatools/distributions)
 
-Contains a suite of continuous and discrete distributions. The `abstract` directory contains an abstract base class, `Distribution`, from which all distributions are built. This directory also includes abstract classes `ContinuousDistribution` and `DiscreteDistribution` respectively, which enforce usage of probabilty density functions (PDFs), probability mass functions (PMFs), and cumulative distribution functions (CDFs).
+Contains a suite of continuous and discrete distributions. Discrete distributions currently supported are:
+- Binomial - $\text{Bin}(n, p)$
+- Poisson - $\text{Po}(\lambda)$
+
+Continuous distributions currently supported are:
+- Exponential - $\text{Exp}(\lambda)$
+- Gamma - $\text{Gamma}(\alpha, \beta)$
+- Johnson's $S_U$ - $\text{JSU}(\gamma, \delta, \xi, \lambda)$
+- Lognormal - $\text{Lognormal}(\mu, \sigma^2)$
+- Uniform - $U[a, b]$
+- Normal - $N(\mu,\sigma^2)$
+- Skew-normal - $\text{SN}(\xi, \omega, \alpha)$
+
+The `abstract` sub-module contains an abstract base class, `Distribution`, from which all distributions are built. This sub-module also includes abstract classes `ContinuousDistribution` and `DiscreteDistribution` respectively, which enforce usage of probabilty density functions (PDFs), probability mass functions (PMFs), and cumulative distribution functions (CDFs).
+
+Distributions where the inverse CDF, `inverse_cdf()`, has been implemented automatically implement a sampling method, `sample()`, via the inverse transformation method.
 
 ### [`sdatools.numerical_methods`](https://github.com/itsmikefuller/sdatools/tree/main/src/sdatools/numerical_methods)
 
-Contain algorithms and approximation techniques as and when they become desirable in `sdatools` case studies. Currently, the `quadrature` sub-module has been populated with a range of Newton-Cotes quadrature rules (Trapezium, Simpson, Simpson 3/8, Boole), as well as a composite rule class. All rules are built from the `QuadratureRule` abstract base class in the `abstract` directory.
+Contains algorithms and approximation techniques as and when they become desirable in `sdatools` case studies. Currently, the `quadrature` sub-module has been populated with a range of Newton-Cotes quadrature rules (Trapezium, Simpson, Simpson 3/8, Boole), as well as a composite rule class. All rules are built from the `QuadratureRule` abstract base class in the `abstract` directory.
 
 ### [`sdatools.parameter_estimation`](https://github.com/itsmikefuller/sdatools/tree/main/src/sdatools/parameter_estimation)
 
