@@ -52,9 +52,9 @@ Continuous distributions currently supported are:
 - Normal - $N(\mu,\sigma^2)$
 - Skew-normal - $\text{SN}(\xi, \omega, \alpha)$
 
-The `abstract` sub-module contains an abstract base class, `Distribution`, from which all distributions are built. This sub-module also includes abstract classes `ContinuousDistribution` and `DiscreteDistribution` respectively, which enforce usage of probabilty density functions (PDFs), probability mass functions (PMFs), and cumulative distribution functions (CDFs).
+The `abstract` sub-module contains an abstract base class, `Distribution`, from which all distributions are built. This sub-module also includes abstract classes `ContinuousDistribution` and `DiscreteDistribution` respectively, which enforce usage of probabilty density functions (`pdf()`), probability mass functions (`pmf()`), and cumulative distribution functions (`cdf()`).
 
-Distributions where the inverse CDF, `inverse_cdf()`, has been implemented automatically implement a sampling method, `sample()`, via the inverse transformation method.
+If a distribution implements an inverse CDF (`inverse_cdf()`), then `sdatools` automatically implements a distribution sampling method, `sample()`, using the inverse transformation method. Sampling is currently supported for all continuous distributions except the Gamma and Skew-normal distributions.
 
 ### [`sdatools.numerical_methods`](https://github.com/itsmikefuller/sdatools/tree/main/src/sdatools/numerical_methods)
 
