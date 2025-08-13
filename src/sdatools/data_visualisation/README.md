@@ -12,7 +12,7 @@ Currently supported visualisations are:
 ### Create a histogram from Normally distributed sample data
 
 ```python
-from sdatools.data_visualisation import Histogram
+from sdatools.data_visualisation.histogram import Histogram
 import numpy as np
 import scipy.stats as stats
 
@@ -44,8 +44,8 @@ The following output figure is produced:
 ### Create a Q-Q plot from Normally distributed sample data
 
 ```python
-from sdatools.distributions import NormalDistribution
-from sdatools.data_visualisation import QQPlot
+from sdatools.distributions.continuous.normal import NormalDistribution
+from sdatools.data_visualisation.qq_plot import QQPlot
 import numpy as np
 
 # Create a normal distribution

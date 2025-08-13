@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from random import choices
 
-from sdatools.distributions import Distribution
+from sdatools.distributions.abstract.distribution import Distribution
 
 
 class DiscreteDistribution(Distribution):

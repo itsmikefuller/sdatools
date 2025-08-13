@@ -6,7 +6,8 @@ from sdatools.core.functions import phi, Phi
 from sdatools.core.utils import vectorise_input, validate_probability
 from sdatools.core.types import SeriesLike
 from sdatools.core.constants import EXP_LIMIT
-from sdatools.distributions import ContinuousDistribution, NormalDistribution
+from sdatools.distributions.abstract.continuous_distribution import ContinuousDistribution
+# from sdatools.distributions.continuous.normal import NormalDistribution
 
 
 class JohnsonSUDistribution(ContinuousDistribution):

@@ -1,6 +1,6 @@
 from math import comb, exp, sqrt, pi
 
-from sdatools.distributions import DiscreteDistribution
+from sdatools.distributions.abstract.discrete_distribution import DiscreteDistribution
 
 
 class BinomialDistribution(DiscreteDistribution):

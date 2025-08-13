@@ -2,7 +2,7 @@ from abc import abstractmethod
 import numpy as np
 
 from sdatools.core.types import ArrayLike, SeriesLike
-from sdatools.distributions import Distribution
+from sdatools.distributions.abstract.distribution import Distribution
 
 
 class ContinuousDistribution(Distribution):

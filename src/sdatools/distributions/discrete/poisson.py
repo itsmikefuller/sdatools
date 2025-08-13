@@ -1,6 +1,6 @@
 from math import log, exp, sqrt
 
-from sdatools.distributions import DiscreteDistribution
+from sdatools.distributions.abstract.discrete_distribution import DiscreteDistribution
 
 
 class PoissonDistribution(DiscreteDistribution):

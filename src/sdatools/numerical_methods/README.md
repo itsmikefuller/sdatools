@@ -23,7 +23,7 @@ All quadrature rules inherit from the abstract base class `QuadratureRule`. The 
 ### Estimating the integral of a polynomial using the Boole Rule
 
 ```python
-from sdatools.numerical_methods.quadrature import BooleRule
+from sdatools.numerical_methods.quadrature.rules.boole import BooleRule
 from math import isclose
 
 # Example function to integrate

@@ -1,11 +1,10 @@
 import matplotlib
 import matplotlib.pyplot as plt
-
 import numpy as np
 
 from sdatools.core.types import SeriesLike
 from sdatools.core.utils import max_SeriesLike, min_SeriesLike
-from sdatools.distributions import ContinuousDistribution
+from sdatools.distributions.abstract.continuous_distribution import ContinuousDistribution
 
 
 class Histogram:

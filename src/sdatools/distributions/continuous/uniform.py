@@ -1,7 +1,7 @@
 import numpy as np
 
 from sdatools.core.utils import vectorise_input, validate_probability
-from sdatools.distributions import ContinuousDistribution
+from sdatools.distributions.abstract.continuous_distribution import ContinuousDistribution
 
 
 class UniformDistribution(ContinuousDistribution):

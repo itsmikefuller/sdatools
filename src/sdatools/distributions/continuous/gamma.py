@@ -2,7 +2,7 @@ from math import exp, sqrt, gamma
 from scipy.special import gammainc
 
 from sdatools.core.utils import vectorise_input, validate_probability
-from sdatools.distributions import ContinuousDistribution
+from sdatools.distributions.abstract.continuous_distribution import ContinuousDistribution
 
 
 class GammaDistribution(ContinuousDistribution):

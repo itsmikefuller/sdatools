@@ -1,7 +1,9 @@
+from typing import TYPE_CHECKING
+
 import matplotlib.pyplot as plt
 import numpy as np
 
-from sdatools.distributions import Distribution
+from sdatools.distributions.abstract.distribution import Distribution
 
 
 class QQPlot:
@@ -19,7 +21,9 @@ class QQPlot:
         self._fig, self._ax = plt.subplots(figsize=(8, 8))
 
     def plot(self, theoretical_quantiles, sample_quantiles, show_plot: bool = False):
-        '''Plot the quantiles of the sample against the theoretical quantiles.'''
+        '''
+        Plot the quantiles of the sample against the theoretical quantiles.
+        '''
         # Check that theoretical_quantiles and sample_quantiles are numpy arrays
         theoretical_quantiles = np.asarray(theoretical_quantiles)
         sample_quantiles = np.asarray(sample_quantiles)
@@ -46,6 +50,7 @@ class QQPlot:
             plt.show() 
 
         return self._fig
+    
     
     def save_fig(self, filename: str):
         self._fig.savefig(filename)

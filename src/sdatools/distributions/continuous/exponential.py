@@ -3,7 +3,7 @@ import numpy as np
 
 from sdatools.core.types import SeriesLike
 from sdatools.core.utils import validate_probability
-from sdatools.distributions import ContinuousDistribution
+from sdatools.distributions.abstract.continuous_distribution import ContinuousDistribution
 
 
 class ExponentialDistribution(ContinuousDistribution):

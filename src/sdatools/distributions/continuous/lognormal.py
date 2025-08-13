@@ -5,7 +5,7 @@ from scipy.stats import lognorm
 from sdatools.core.functions import Phi
 from sdatools.core.utils import vectorise_input, validate_probability
 from sdatools.core.types import SeriesLike
-from sdatools.distributions import ContinuousDistribution
+from sdatools.distributions.abstract.continuous_distribution import ContinuousDistribution
 
 
 class LogNormalDistribution(ContinuousDistribution):
