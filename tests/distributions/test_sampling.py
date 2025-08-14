@@ -1,10 +1,8 @@
 import pytest
 
-from sdatools.distributions import (
-    BinomialDistribution, 
-    PoissonDistribution,
-    NormalDistribution
-)
+from sdatools.distributions.discrete.binomial import BinomialDistribution
+from sdatools.distributions.discrete.poisson import PoissonDistribution
+from sdatools.distributions.continuous.normal import NormalDistribution
 
 
 def test_sample_binomial():

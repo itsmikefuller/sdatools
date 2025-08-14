@@ -1,14 +1,12 @@
 from math import isclose
 from typing import Callable
 
-from sdatools.numerical_methods.quadrature import (
-    TrapeziumRule,
-    SimpsonRule,
-    Simpson38Rule,
-    BooleRule,
-    CompositeRule,
-    QuadratureRule
-)
+from sdatools.numerical_methods.quadrature.rules.trapezium import TrapeziumRule
+from sdatools.numerical_methods.quadrature.rules.simpson import SimpsonRule, Simpson38Rule
+from sdatools.numerical_methods.quadrature.rules.boole import BooleRule
+from sdatools.numerical_methods.quadrature.rules.composite import CompositeRule
+from sdatools.numerical_methods.quadrature.abstract.quadrature_rule import QuadratureRule
+
 
 # Exact quadrature tests
 

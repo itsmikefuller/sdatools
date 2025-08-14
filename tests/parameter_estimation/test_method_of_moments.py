@@ -1,4 +1,6 @@
-from sdatools.distributions import NormalDistribution, GammaDistribution, ExponentialDistribution
+from sdatools.distributions.continuous.normal import NormalDistribution
+from sdatools.distributions.continuous.gamma import GammaDistribution
+from sdatools.distributions.continuous.exponential import ExponentialDistribution
 from sdatools.parameter_estimation.method_of_moments import MethodOfMoments
 
 from math import isclose

@@ -3,7 +3,7 @@ import numpy as np
 import pytest
 
 from sdatools.core.constants import EXP_LIMIT
-from sdatools.distributions import JohnsonSUDistribution
+from sdatools.distributions.continuous.jsu import JohnsonSUDistribution
 
 
 # Fixtures

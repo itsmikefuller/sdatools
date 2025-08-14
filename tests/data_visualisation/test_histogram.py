@@ -1,5 +1,5 @@
-from sdatools.data_visualisation import Histogram
-from sdatools.distributions import NormalDistribution
+from sdatools.data_visualisation.histogram import Histogram
+from sdatools.distributions.continuous.normal import NormalDistribution
 
 import numpy as np
 import datetime

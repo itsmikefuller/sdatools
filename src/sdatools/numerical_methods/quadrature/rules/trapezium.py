@@ -1,4 +1,4 @@
-from sdatools.numerical_methods.quadrature import QuadratureRule
+from sdatools.numerical_methods.quadrature.abstract.quadrature_rule import QuadratureRule
 
 from typing import Callable
 

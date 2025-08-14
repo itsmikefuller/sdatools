@@ -1,4 +1,4 @@
-from sdatools.distributions import NormalDistribution
+from sdatools.distributions.continuous.normal import NormalDistribution
 
 
 # Special methods
